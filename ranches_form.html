@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>Ranches Data Collection</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+  
+    .table-scroll {
+      max-height: 600px;
+      overflow-y: auto;
+      overflow-x: auto;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+  
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+      min-width: 1400px; /* Enables horizontal scroll */
+    }
+  
+    /* Default cell styles */
+    th, td {
+      border: 1px solid #999;
+      text-align: center;
+      padding: 4px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+  
+    /* Sticky merged top headers (e.g. Taureaux) */
+    thead tr:first-child th {
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 3;
+      height: 28px;
+      line-height: 28px;
+    }
+  
+    /* Sticky subheaders (e.g. 6, 7, 8...) */
+    thead tr:nth-child(2) th {
+      position: sticky;
+      top: 28px;
+      background: white;
+      z-index: 2;
+      height: 28px;
+      line-height: 28px;
+    }
+  
+    /* Sticky first column (event labels) */
+    thead th:first-child,
+    tbody td:first-child {
+      position: sticky;
+      left: 0;
+      background: white;
+      z-index: 4;
+      text-align: left;
+      width: 180px;
+      min-width: 300px;
+      max-width: 300px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 28px;
+      line-height: 28px;
+    }
+
+  
+    /* Default width for regular columns (non-inputs) */
+    td:not(.cow-cell):not(:first-child),
+    th:not(:first-child):not([colspan]) {
+      min-width: 80px;
+    }
+  
+    /* Wider input columns */
+    .cow-cell {
+      width: 100px;
+      max-width: 100px;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+  
+    .cow-cell input[type="number"] {
+      width: 100%;
+      font-size: 13px;
+      text-align: center;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+  
+    .cow-cell input[type="number"]::-webkit-inner-spin-button,
+    .cow-cell input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  
+    /* Hover effect */
+    .hover-row {
+      background-color: #f5faff;
+    }
+  
+    .hover-col {
+      background-color: #f5faff;
+    }
+  
+    /* Inputs & controls above table */
+    select, input[type="text"] {
+      margin: 5px 10px 15px 0;
+      padding: 5px;
+      font-size: 14px;
+    }
+  
+    button {
+      margin-top: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+    }
+
+    /* Make first column sticky for BOTH the top header and the row headers */
+    thead th:first-child {
+      position: sticky;
+      top: 0;
+      left: 0;
+      background: white;
+      z-index: 5; /* higher than other headers */
+      min-width: 180px;
+      text-align: left;
+      padding-left: 8px;
+    }
+
+    /* First column of body */
+    tbody td:first-child {
+      position: sticky;
+      left: 0;
+      background: white;
+      z-index: 2;
+      min-width: 180px;
+      text-align: left;
+      padding-left: 8px;
+    }
+
+
+    thead tr:first-child th:first-child {
+      position: sticky;
+      left: 0;
+      background: white;
+      z-index: 5; /* higher than other sticky headers */
+    }
+
+    .focus-row {
+      background-color: #8fb2ca !important;
+    }
+
+    .focus-col {
+      background-color: #8fb2ca !important;
+    }
+
+    .invalid-parent {
+      background-color: #ffe6e6;
+      border: 2px solid red;
+    }
+    
+
+  </style>
+  
+
+  
+</head>
+<body>
+
+<h2>Ranches Data Collection</h2>
+
+<!-- Form Controls -->
+<label>Entity:
+  <select id="entity">
+    <option>Grelka</option>
+    <option>PHL</option>
+  </select>
+  <label>Section:
+    <select id="section">
+      <option>Katentania</option>
+      <option>Biano 2</option>
+      <option>Shishinkwa</option>
+      <option>Malambwe/Hôpital</option>
+      <option>Mukishi</option>
+      <option>Luniemu</option>
+      <option>Mudidie</option>
+      <option>Mondoie</option>
+      <option>Lupete</option>
+      <option>Muntobwe</option>
+      <option>Luania</option>
+      <option>Lutuay</option>
+      <option>Hendelet</option>
+      <option>Kankundwe</option>
+      <option>Kelambwe</option>
+      <option>Makanza</option>
+      <option>Kindele</option>
+      <option>Tshiongwe</option>
+      <option>Mushindji</option>
+    </select>
+  </label>
+<label>Mois:
+  <select id="month">
+    <option>Janvier</option><option>Février</option><option>Mars</option>
+    <option>Avril</option><option>Mai</option><option>Juin</option>
+    <option>Juillet</option><option>Août</option><option>Septembre</option>
+    <option>Octobre</option><option>Novembre</option><option>Décembre</option>
+  </select>
+</label>
+<label>Semaine:
+  <select id="week">
+    <option>1</option><option>2</option><option>3</option>
+    <option>4</option><option>5</option>
+  </select>
+</label>
+
+<!-- Table Structure -->
+
+<div class="table-scroll">
+  <table id="cowGrid">
+    <thead>
+      <tr>
+        <th rowspan="2">Event</th>
+        <th colspan="6">Taureaux</th>
+        <th colspan="9">Taurillons</th>
+        <th colspan="2">GT</th>
+        <th colspan="1">G</th>
+        <th colspan="1">C</th>
+        <th colspan="6">Bouvillons</th>
+        <th colspan="3">Génisses</th>
+        <th colspan="2">VM</th>
+        <th colspan="2">VF</th>
+        <th>B</th>
+      </tr>
+      <tr>
+        <th>6</th><th>7</th><th>8</th><th>9</th><th>0</th><th>1</th>
+        <th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>0</th>
+        <th>1</th><th>2</th>
+        <th>R</th>
+        <th>B</th>
+        <th>9</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>
+        <th>2</th><th>3</th><th>4</th>
+        <th>4</th><th>5</th>
+        <th>4</th><th>5</th>
+        <th>T</th>
+      </tr>
+    </thead>
+    <tbody id="gridBody"></tbody>
+  </table>
+</div>
+
+<button onclick="downloadJSON()">Save and Upload</button>
+
+
+<script>
+   const columns = [
+  "Taureaux 6", "Taureaux 7", "Taureaux 8", "Taureaux 9", "Taureaux 0", "Taureaux 1",
+  "Taurillons 2", "Taurillons 3", "Taurillons 4", "Taurillons 5", "Taurillons 6", "Taurillons 7", "Taurillons 8", "Taurillons 9", "Taurillons 0",
+  "GT 1", "GT 2",
+  "G R", "G B",
+  "C 9", "C 0",
+  "Bouvillons 1", "Bouvillons 2", "Bouvillons 3", "Bouvillons 4",
+  "Génisses 2", "Génisses 3", "Génisses 4",
+  "VM 4", "VM 5",
+  "VF 4", "VF 5",
+  "B T"
+];
+
+
+  const events = [
+    "Début de Semaine", "Naissances", "Retrouvé", "TDC", "TFSn",
+    "Régularisation", "Maladie",
+    "  Trypanosomose", "  Anaplasmose", "  Verminoses", "  Coccidiose", "  Cachexie", "  TBC",
+    "  Pasteurellose", "  Affections pulm.", "  Otite", "  Dengue", "  Diverses mdies",
+    "ACCIDENTS", "  Orph/abandon", "  Acc.de vêlage", "  Fauve", "  Foudre", "  Serpent",
+    "  Intoxication", "  Embourbement", "  Noyade", "  Traumatisme", "  Non diagnostiqué", "  Divers",
+    "Disparition", "Vols", "Dons", "Travaux", "Abattages", "Ventes 1", "Ventes 2",
+    "TDC",  "TFSn",  "Régularisation", "Fin de Semaine"
+  ];
+
+  const tbody = document.getElementById("gridBody");
+
+  events.forEach((eventName, rowIdx) => {
+    const row = document.createElement("tr");
+    const labelCell = document.createElement("td");
+    labelCell.textContent = eventName;
+    labelCell.style.textAlign = "left";
+
+    const isSubMaladie = rowIdx > events.indexOf("Maladie") && rowIdx < events.indexOf("ACCIDENTS");
+    const isSubAccidents = rowIdx > events.indexOf("ACCIDENTS") && rowIdx < events.indexOf("Disparition");
+
+    if (isSubMaladie || isSubAccidents) {
+      // Subcategories: indented but not bold
+      labelCell.style.paddingLeft = "24px";
+      labelCell.style.fontWeight = "normal";
+    } else {
+      // Main categories: bold
+      labelCell.style.fontWeight = "bold";
+    }
+
+    row.appendChild(labelCell);
+
+    columns.forEach((_, colIdx) => {
+      const cell = document.createElement("td");
+      cell.classList.add("cow-cell"); // ✅ this is new
+      const input = document.createElement("input");
+      input.type = "number";
+      input.min = 0;
+      input.dataset.row = rowIdx;
+      input.dataset.col = colIdx;
+      input.onmouseover = () => highlight(rowIdx, colIdx);
+      input.onmouseout = removeHighlight;
+      input.onfocus = () => applyFocusHighlight(rowIdx, colIdx);
+      input.onblur = removeFocusHighlight;
+      input.oninput = () => {
+        validateParentRowSum("Maladie", "  Trypanosomose", "ACCIDENTS");
+        validateParentRowSum("ACCIDENTS", "  Orph/abandon", "Disparition");
+      };
+
+
+      cell.appendChild(input);
+      row.appendChild(cell);
+    });
+
+
+    tbody.appendChild(row);
+  });
+
+  function highlight(rowIdx, colIdx) {
+      const rows = document.querySelectorAll("#cowGrid tr");
+      for (let r = 2; r < rows.length; r++) {
+        rows[r].cells[colIdx + 1].classList.add("hover-col");
+      }
+      rows[rowIdx + 2].classList.add("hover-row");
+    }
+
+  function removeHighlight() {
+    document.querySelectorAll(".hover-col, .hover-row").forEach(el =>
+      el.classList.remove("hover-col", "hover-row")
+    );
+    }
+
+    function applyFocusHighlight(rowIdx, colIdx) {
+      const rows = document.querySelectorAll("#cowGrid tr");
+      for (let r = 2; r < rows.length; r++) {
+        rows[r].cells[colIdx + 1].classList.add("focus-col");
+      }
+      rows[rowIdx + 2].classList.add("focus-row");
+    }
+
+    function removeFocusHighlight() {
+      document.querySelectorAll(".focus-col, .focus-row").forEach(el =>
+        el.classList.remove("focus-col", "focus-row")
+      );
+    }
+
+    function validateParentRowSum(parentLabel, startSubLabel, endSubLabel) {
+      const parentRowIdx = events.indexOf(parentLabel);
+      const startIdx = events.indexOf(startSubLabel);
+      const endIdx = events.indexOf(endSubLabel);
+      const totalCols = columns.length;
+      let isValid = true;
+
+      for (let col = 0; col < totalCols; col++) {
+        let subSum = 0;
+
+        for (let r = startIdx; r < endIdx; r++) {
+          const subInput = document.querySelector(`input[data-row="${r}"][data-col="${col}"]`);
+          subSum += parseInt(subInput.value) || 0;
+        }
+
+        const parentInput = document.querySelector(`input[data-row="${parentRowIdx}"][data-col="${col}"]`);
+        const parentVal = parseInt(parentInput.value) || 0;
+
+        if (parentVal !== subSum) {
+          parentInput.classList.add("invalid-parent");
+          isValid = false;
+        } else {
+          parentInput.classList.remove("invalid-parent");
+        }
+      }
+
+      return isValid;
+    }
+
+
+
+
+    function downloadJSON() {
+      const inputs = document.querySelectorAll('input[type="number"]');
+      const data = [];
+
+      const meta = {
+        entity: document.getElementById("entity").value,
+        section: document.getElementById("section").value,
+        month: document.getElementById("month").value,
+        week: document.getElementById("week").value,
+        entries: []
+      };
+
+      // Basic input validation: highlight invalid numeric fields
+      let inputValid = true;
+      inputs.forEach(input => {
+        const val = input.value;
+        if (val && (!/^\d+$/.test(val) || parseInt(val) < 0)) {
+          input.classList.add("invalid");
+          inputValid = false;
+        } else {
+          input.classList.remove("invalid");
+        }
+      });
+
+      // Validate parent row sums
+      const isMaladieValid = validateParentRowSum("Maladie", "  Trypanosomose", "ACCIDENTS");
+      const isAccidentsValid = validateParentRowSum("ACCIDENTS", "  Orph/abandon", "Disparition");
+
+      // Prevent submission if any validation fails
+      if (!meta.entity || !meta.section || !meta.month || !meta.week) {
+        alert("❌ Please fill Entity, Section, Month, and Week.");
+        return;
+      }
+
+      if (!inputValid || !isMaladieValid || !isAccidentsValid) {
+        alert("❌ Please fix the highlighted errors before submitting.\n\n- Make sure 'Maladie' and 'Accidents' match their subcategories\n- Only enter non-negative whole numbers");
+        return;
+      }
+
+      // Build data
+      inputs.forEach(input => {
+        const val = input.value;
+        if (val !== '') {
+          const cow = columns[parseInt(input.dataset.col)];
+          const event = events[parseInt(input.dataset.row)];
+          data.push({ cow, event, quantity: parseInt(val) });
+        }
+      });
+
+      meta.entries = data;
+
+      // Download local JSON file
+      const blob = new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `cow_data_${meta.entity}_${meta.section}_W${meta.week}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Submit to Google Sheet
+      const encoded = `data=${encodeURIComponent(JSON.stringify(meta))}`;
+
+      fetch("https://script.google.com/macros/s/AKfycbwXUY6PlEup2gN00l-SpLYWwmzhj8MxSEhNtUw-wpA8i1BlRjb-tFuYOn-qvAUYwvKfmw/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: encoded
+      })
+      .then(() => {
+        alert("✅ Data submitted to Google Sheet!");
+      })
+      .catch(err => {
+        alert("❌ Submission failed: " + err.message);
+      });
+    }
+
+
+
+
+
+</script>
+
+</body>
+</html>

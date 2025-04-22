@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High Value Cuts Form</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+    #form-container {
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      color: black;
+    }
+    h2, h4 {
+      text-align: center;
+      text-decoration: underline;
+      margin-top: 0;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+    .form-group {
+      flex: 1 1 45%;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 2px;
+    }
+    input, select, textarea {
+      margin-top: 4px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+    textarea {
+      height: auto;
+      line-height: 1.4;
+      resize: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .section {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      page-break-inside: avoid;
+    }
+    .button-container {
+      text-align: center;
+      margin: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .form-group.tall {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 120px;
+    }
+    .form-group.tall textarea {
+      flex: 1;
+    }
+    .weight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px 15px;
+      margin-top: 2px;
+    }
+    .weight-grid div {
+      white-space: nowrap;
+    }
+    .editable-box {
+      min-height: 80px;
+      padding: 0px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media print {
+      button, .button-container {
+        display: none !important;
+      }
+      .section, .form-group {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      textarea {
+        height: auto !important;
+        overflow: visible !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .form-group.tall {
+        height: auto;
+      }
+      h2, h4 {
+        font-size: 18px;
+      }
+      button {
+        width: 100%;
+        font-size: 14px;
+      }
+      .button-container {
+        margin: 20px 0;
+      }
+    }
+
+    .weight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px 15px;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr !important;
+      }
+      #form-container {
+        width: 100% !important;
+        padding: 10px;
+      }
+      .form-group.tall {
+        height: auto;
+      }
+      h2, h4 {
+        font-size: 18px;
+      }
+      button {
+        width: 100%;
+        font-size: 14px;
+      }
+      .button-container {
+        margin: 20px 0;
+      }
+      .weight-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+        /* Force desktop layout for PDF download */
+    .print-layout .form-grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+    .print-layout .weight-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="form-container">
+    <h2>High Value Cuts: Client Specifications Sheet</h2>
+
+    <div class="section form-grid">
+      <div class="form-group">
+        <label>Order Date:</label>
+        <input type="date" id="orderDate">
+      </div>
+      <div class="form-group">
+        <label>Name of Establishment:</label>
+        <input type="text" id="establishment">
+      </div>
+      <div class="form-group">
+        <label>Client Code:</label>
+        <input type="text" id="code">
+      </div>
+      <div class="form-group">
+        <label>Client Name:</label>
+        <input type="text" id="clientName">
+      </div>
+      <div class="form-group tall" style="grid-row: span 2;">
+        <label>Address:</label>
+        <div id="address" contenteditable="true" class="editable-box"></div>
+      </div>
+      <div class="form-group">
+        <label>Delivery Date:</label>
+        <input type="date" id="deliveryDate">
+      </div>
+      <div class="form-group">
+        <label>Delivery Time:</label>
+        <input type="time" id="deliveryTime">
+      </div>
+      <div class="form-group">
+        <label>Reference:</label>
+        <input type="text" id="reference">
+      </div>
+    </div>
+
+    <div class="section form-grid">
+      <div class="form-group">
+        <label>Product Name:</label>
+        <input type="text" id="productName">
+      </div>
+      <div class="form-group">
+        <label>Product Code:</label>
+        <input type="text" id="productCode">
+      </div>
+      <div class="form-group">
+        <label>Weight/Unit:</label>
+        <input type="text" id="weightUnit">
+      </div>
+      <div class="form-group">
+        <label>Total Weight:</label>
+        <input type="text" id="totalWeight">
+      </div>
+      <div class="form-group">
+        <label>Fat %:</label>
+        <select id="fatPercent">
+          <option value="Low">Low</option>
+          <option value="Med">Med</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Width/Thickness (mm):</label>
+        <input type="text" id="thickness">
+      </div>
+      <div class="form-group">
+        <label>State:</label>
+        <select id="state">
+          <option value="Frozen">Frozen</option>
+          <option value="Fresh">Fresh</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section">
+      <label>Remarks:</label>
+      <div id="remarks" contenteditable="true" class="editable-box"></div>
+
+      <label>Remarks After Delivery:</label>
+      <div id="remarksAfter" contenteditable="true" class="editable-box"></div>
+    </div>
+
+    <div class="section">
+      <p><strong>NB:</strong> Below items are always frozen</p>
+      <div class="weight-grid">
+        <div><strong>Entrecote:</strong></div>
+        <div>Portions or whole (2–4kg)</div>
+        <div><strong>Tomahawk:</strong></div>
+        <div>500–800gr/portion</div>
+        <div><strong>Rib-eye:</strong></div>
+        <div>4–5kg with 250–300 portions</div>
+        <div><strong>Cote-a-los:</strong></div>
+        <div>300–650g (50g intervals)</div>
+        <div><strong>T-bone:</strong></div>
+        <div>300-650 (50g intervals)</div>
+        <div><strong>Contrefilet:</strong></div>
+        <div>4–5kg with 250–300 portions</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button onclick="downloadAsPDF()">Download PDF</button>
+  </div>
+
+  <script>
+    function downloadAsPDF() {
+      const element = document.getElementById("form-container");
+
+      // Force desktop layout
+      element.classList.add("print-layout");
+
+      const establishment = document.getElementById("establishment").value.trim().replace(/\s+/g, '-');
+      const productName = document.getElementById("productName").value.trim().replace(/\s+/g, '-');
+      const orderDate = document.getElementById("orderDate").value;
+
+      const fileName = `${establishment || 'establishment'}_${productName || 'product'}_${orderDate || 'date'}.pdf`;  
+
+
+      const opt = {
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          scrollY: 0
+        },
+        jsPDF: {
+          unit: 'in',
+          format: [8.27, 11.69],
+          orientation: 'portrait'
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
+        const totalPages = pdf.internal.getNumberOfPages();
+        for (let i = totalPages; i > 1; i--) {
+          pdf.deletePage(i);
+        }
+        pdf.save(opt.filename);
+        element.classList.remove("print-layout"); // Revert after saving
+      }).catch(() => {
+        element.classList.remove("print-layout"); // Ensure cleanup on failure
+      });
+    }
+
+  </script>
+</body>
+</html>
