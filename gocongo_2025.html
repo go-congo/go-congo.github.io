@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GoCongo Wrapped 2024</title>
+  <title>GoCongo 2025</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -59,7 +59,7 @@
   </style>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="text-deepearth">
@@ -69,126 +69,128 @@
     const { useState, useEffect, useMemo, useRef } = React;
     const { motion, AnimatePresence } = Motion;
 
-    const wrappedData = {
-      "wrapped_data": {
-        "biscuits": {
-          "category_name": "Biscuits",
-          "summary_stats": {
-            "total_tonnage": 22438,
-            "total_cartons": 5160680,
-            "total_units": 1418696980,
-            "wheat_flour_tonnage": 11219,
-            "hectares_harvested": 2805,
-            "equivalent_football_fields": 4000
-          },
-          "engagement": {
-            "total_orders": 63980,
-            "orders_per_day": 213.3
-          },
-          "peak_performance": {
-            "highest_week": {
-              "week_number": 2,
-              "tonnage": 743,
-              "cartons": 172003,
-              "units": 47771874
-            },
-            "highest_day": {
-              "date": "1st of October",
-              "tonnage": 255,
-              "cartons": 57772,
-              "units": 16757849
-            }
-          },
-          "top_performers": {
-            "top_product": {
-              "total_unique_skus": 12,
-              "name": "Extra Classic",
-              "tonnage": 11605,
-              "cartons": 2642656,
-              "units": 773696568,
-              "percentage_of_total_volume": "55%"
-            },
-            "top_client": {
-              "total_unique_clients": 6135,
-              "name": "ARC EN CIEL",
-              "tonnage": 1830,
-              "cartons": 408890,
-              "units": 125337316,
-              "percentage_of_total_volume": "91%"
-            },
-            "top_open_market_zone": {
-              "name": "Zone K 1",
-              "tonnage": 1124,
-              "cartons": 258840,
-              "units": 70258913,
-              "percentage_of_open_market_volume": "51%"
-            }
-          }
+    const gocongoLogo = 'https://cdn.prod.website-files.com/5fdc620881e86c745ea778c6/6501c198a1e13c5f83ed4ec1_Logo_Couleur_Positif.svg';
+
+    const gocongoData = {
+      biscuits: {
+        category_name: 'Biscuits',
+        summary_stats: {
+          total_tonnage: 22438,
+          total_cartons: 5160680,
+          total_units: 1418696980,
+          wheat_flour_tonnage: 11219,
+          hectares_harvested: 2805,
+          equivalent_football_fields: 4000,
         },
-        "frigocongo": {
-          "category_name": "Frigocongo",
-          "summary_stats": {
-            "total_tonnage": 2522
+        engagement: {
+          total_orders: 63980,
+          orders_per_day: 213.3,
+        },
+        peak_performance: {
+          highest_week: {
+            week_number: 2,
+            tonnage: 743,
+            cartons: 172003,
+            units: 47771874,
           },
-          "engagement": {
-            "total_orders": 31866,
-            "orders_per_day": 106.2
+          highest_day: {
+            date: '1st of October',
+            tonnage: 255,
+            cartons: 57772,
+            units: 16757849,
           },
-          "peak_performance": {
-            "highest_week": {
-              "week_number": 2,
-              "tonnage": 83
-            },
-            "highest_day": {
-              "date": "18th of January",
-              "tonnage": "36T"
-            }
+        },
+        top_performers: {
+          top_product: {
+            total_unique_skus: 12,
+            name: 'Extra Classic',
+            tonnage: 11605,
+            cartons: 2642656,
+            units: 773696568,
+            percentage_of_total_volume: '55%',
           },
-          "top_performers": {
-            "top_product": {
-              "total_unique_skus": 129,
-              "name": "Roti",
-              "tonnage": 658,
-              "percentage_of_total": "26%"
-            },
-            "top_client": {
-              "total_unique_clients": 6135,
-              "name": "BISO NA BISO",
-              "tonnage": 164,
-              "percentage_of_total": "6%"
-            },
-            "top_channel": {
-              "name": "Open Market",
-              "tonnage": 941,
-              "percentage_of_total": "37%"
-            },
-            "top_zone": {
-              "name": "Li1",
-              "tonnage": 109,
-              "percentage_of_open_market_sales": "11%"
-            }
+          top_client: {
+            total_unique_clients: 6135,
+            name: 'ARC EN CIEL',
+            tonnage: 1830,
+            cartons: 408890,
+            units: 125337316,
+            percentage_of_total_volume: '9%',
           },
-          "morceaux_of_the_year": [
-            {
-              "name": "Filet",
-              "tonnage": 20,
-              "percentage_of_total_morceaux": "19%"
-            },
-            {
-              "name": "Steak",
-              "tonnage": 21,
-              "percentage_of_total_morceaux": "19%"
-            }
-          ]
-        }
-      }
+          top_open_market_zone: {
+            name: 'Zone K 1',
+            tonnage: 1124,
+            cartons: 258840,
+            units: 70258913,
+            percentage_of_open_market_volume: '7%',
+          },
+        },
+      },
+      frigocongo: {
+        category_name: 'Frigocongo',
+        summary_stats: {
+          total_tonnage: 2522,
+        },
+        engagement: {
+          total_orders: 31866,
+          orders_per_day: 106.2,
+        },
+        peak_performance: {
+          highest_week: {
+            week_number: 2,
+            tonnage: 83,
+          },
+          highest_day: {
+            date: '18th of January',
+            tonnage: '36T',
+          },
+        },
+        top_performers: {
+          top_product: {
+            total_unique_skus: 129,
+            name: 'Roti',
+            tonnage: 658,
+            percentage_of_total: '26%',
+          },
+          top_client: {
+            total_unique_clients: 6135,
+            name: 'BISO NA BISO',
+            tonnage: 164,
+            percentage_of_total: '6%',
+          },
+          top_channel: {
+            name: 'Open Market',
+            tonnage: 941,
+            percentage_of_total: '37%',
+          },
+          top_zone: {
+            name: 'Li1',
+            tonnage: 109,
+            percentage_of_open_market_sales: '11%',
+          },
+        },
+        morceaux_of_the_year: [
+          {
+            name: 'Filet',
+            tonnage: 20,
+            percentage_of_total_morceaux: '19%',
+          },
+          {
+            name: 'Steak',
+            tonnage: 21,
+            percentage_of_total_morceaux: '19%',
+          },
+        ],
+      },
     };
 
     const brandThemes = {
       biscuits: {
         key: 'biscuits',
         label: 'GoCongo · Biscuits',
-        tagline: 'Citrus energy and joyful crunch.',
+        yearTag: 'GoCongo 2025',
+        heroImage: 'https://cdn.prod.website-files.com/5fdc620881e86c745ea778c6/606af661dac0c3c67744deb5_image00001.jpeg',
+        cardImage: 'https://cdn.prod.website-files.com/5fdc620881e86c745ea778c6/606af661dac0c3c67744deb5_image00001.jpeg',
         palette: {
           primary: '#E67F22',
           accent: '#3598DB',
@@ -203,7 +205,9 @@
       frigocongo: {
         key: 'frigocongo',
         label: 'Frigocongo · Meat',
-        tagline: 'Organic heritage with bold cuts.',
+        yearTag: 'Frigocongo 2025 Meat',
+        heroImage: 'https://cdn.prod.website-files.com/5fdc7900d3c5502ca14cc11d/6516cf595a0e479df7bb76fa_Frigo-congo.jpg',
+        cardImage: 'https://cdn.prod.website-files.com/5fdc7900d3c5502ca14cc11d/6516cf595a0e479df7bb76fa_Frigo-congo.jpg',
         palette: {
           primary: '#BA1638',
           accent: '#2E8A57',
@@ -216,9 +220,25 @@
       },
     };
 
+    const productHeroImages = {
+      biscuits: 'https://cdn.prod.website-files.com/5fdc620881e86c745ea778c6/655f5de6deb6f4dcc77d8084_Gc-extra-img-0.png',
+      frigocongo: 'https://cdn.prod.website-files.com/5fdc7900d3c5502ca14cc11d/6516cf595a0e479df7bb76fa_Frigo-congo.jpg',
+    };
+
     const formatNumber = (value) => {
       if (typeof value === 'string') return value;
       return value.toLocaleString('en-US');
+    };
+
+    const parsePercentValue = (value) => {
+      if (value === undefined || value === null) return 0;
+      const match = String(value).match(/[\d.]+/);
+      return match ? parseFloat(match[0]) : 0;
+    };
+
+    const formatCompactNumber = (value, digits = 1) => {
+      if (typeof value !== 'number') return value;
+      return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: digits }).format(value);
     };
 
     const useCountUp = (value, duration = 1200) => {
@@ -242,12 +262,174 @@
       return Math.round(display);
     };
 
+    const buildVolumeStory = () => '';
+
+    const kpiCardVariants = {
+      hidden: { opacity: 0, y: 16, scale: 0.98 },
+      visible: (delay = 0) => ({
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.55, delay, ease: 'easeOut' },
+      }),
+    };
+
+    const KpiCard = ({ delay = 0, className = '', style, children, ...rest }) => (
+      <motion.div
+        variants={kpiCardVariants}
+        initial="hidden"
+        animate="visible"
+        custom={delay}
+        className={className}
+        style={style}
+        {...rest}
+      >
+        {children}
+      </motion.div>
+    );
+
     const CountBadge = ({ value, label, color }) => {
       const animated = useCountUp(value);
       return (
         <div className="flex-1 rounded-2xl p-4 sm:p-5 bg-white shadow-md border border-white/60">
           <p className="text-sm font-semibold text-slate-500 tracking-wide uppercase">{label}</p>
           <p className="text-2xl sm:text-3xl font-extrabold mt-2" style={{ color }}>{formatNumber(animated)}</p>
+        </div>
+      );
+    };
+
+    const FlowStep = ({ label, value, icon, theme, suffix = '', caption, delay = 0 }) => {
+      const animated = useCountUp(typeof value === 'number' ? value : 0);
+      return (
+        <KpiCard delay={delay} className="relative flex h-[95px] sm:h-[105px] items-center gap-2 rounded-lg p-2.5 sm:p-2.5 bg-white/90 border border-white/70 shadow-sm">
+          <div className="flex items-center gap-2 w-full">
+            <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-md flex items-center justify-center text-white shadow-sm" style={{ background: theme.palette.primary }}>
+              <i className={`fa-solid ${icon} text-[12px]`}></i>
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-semibold uppercase text-slate-500 tracking-[0.08em]">{label}</p>
+              <div className="flex items-baseline gap-1 mt-1 leading-none flex-wrap">
+                <span className="font-extrabold text-lg sm:text-xl" style={{ color: theme.palette.primary }}>
+                  {formatCompactNumber(animated)}
+                </span>
+                {suffix && <span className="text-[10px] sm:text-xs font-semibold text-slate-500">{suffix}</span>}
+              </div>
+              {caption && <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-0.5">{caption}</p>}
+            </div>
+          </div>
+        </KpiCard>
+      );
+    };
+
+    const FlowConnector = ({ color, orientation = 'horizontal' }) => (
+      <div className="flex items-center justify-center">
+        <div className="h-7 w-7 rounded-full bg-white/85 border border-white/70 shadow-sm flex items-center justify-center" style={{ color }}>
+          <i className={`fa-solid ${orientation === 'horizontal' ? 'fa-arrow-right-long' : 'fa-arrow-down-long'} text-[10px]`}></i>
+        </div>
+      </div>
+    );
+
+    const DonutStat = ({ percent, label, theme }) => {
+      const size = 110;
+      const stroke = 12;
+      const radius = (size - stroke) / 2;
+      const circumference = 2 * Math.PI * radius;
+      const offset = circumference * (1 - percent / 100);
+      return (
+        <div className="relative flex items-center justify-center">
+          <svg width={size} height={size} className="-rotate-90">
+            <circle cx={size / 2} cy={size / 2} r={radius} stroke="rgba(255,255,255,0.15)" strokeWidth={stroke} fill="none" />
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              stroke={theme.palette.brand || '#2E8A57'}
+              strokeWidth={stroke}
+              strokeLinecap="round"
+              fill="none"
+              strokeDasharray={`${circumference} ${circumference}`}
+              strokeDashoffset={offset}
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center leading-none">
+              <p className="text-3xl font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.brand || '#2E8A57' }}>{percent}%</p>
+              <p className="text-[11px] text-slate-300 font-semibold uppercase">{label}</p>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const VolumeFlow = ({ data, theme, brandKey }) => {
+      const flowMetrics = [
+        {
+          key: 'tonnage',
+          label: 'Tonnage Sold',
+          value: data.summary_stats?.total_tonnage,
+          suffix: 'T',
+          icon: 'fa-weight-hanging',
+        },
+        {
+          key: 'units',
+          label: brandKey === 'biscuits' ? 'Biscuits Baked' : 'Units Processed',
+          value: data.summary_stats?.total_units,
+          suffix: brandKey === 'biscuits' ? 'biscuits' : 'units',
+          icon: brandKey === 'biscuits' ? 'fa-cookie-bite' : 'fa-drumstick-bite',
+          hero: brandKey === 'biscuits',
+        },
+        {
+          key: 'cartons',
+          label: 'Cartons Sold',
+          value: data.summary_stats?.total_cartons,
+          suffix: 'cartons',
+          icon: 'fa-box-open',
+        },
+        {
+          key: 'orders',
+          label: 'Orders Delivered',
+          value: data.engagement?.total_orders,
+          suffix: 'orders',
+          icon: 'fa-clipboard-check',
+        },
+        ...(brandKey === 'frigocongo' && typeof data.engagement?.orders_per_day === 'number'
+          ? [
+              {
+                key: 'orders_per_day',
+                label: 'Orders per Day',
+                value: data.engagement.orders_per_day,
+                suffix: 'orders/day',
+                icon: 'fa-calendar-day',
+              },
+            ]
+          : []),
+      ].filter((item) => typeof item.value === 'number' && !Number.isNaN(item.value));
+
+      if (!flowMetrics.length) {
+        return (
+          <div className="mt-6 rounded-2xl p-5 bg-white/90 border border-white/70 shadow-sm text-sm text-slate-600">
+            Volume data coming soon.
+          </div>
+        );
+      }
+
+      return (
+        <div className="mt-4 flex flex-col gap-1.5 pb-3 sm:pb-3">
+          {flowMetrics.map((metric, idx) => (
+            <React.Fragment key={`${metric.key}-flow`}>
+              <FlowStep
+                label={metric.label}
+                value={metric.value}
+                suffix={metric.suffix}
+                icon={metric.icon}
+                theme={theme}
+                hero={metric.hero}
+                caption={metric.caption}
+                delay={idx * 0.08}
+              />
+              {idx < flowMetrics.length - 1 && <FlowConnector color={theme.palette.primary} orientation="vertical" />}
+            </React.Fragment>
+          ))}
         </div>
       );
     };
@@ -277,9 +459,20 @@
     );
 
     const SlideFrame = ({ children, theme }) => (
-      <div className={`story-shell relative w-full aspect-[9/16] max-w-[420px] rounded-[28px] p-6 sm:p-7 overflow-hidden border border-white/60 glass ${theme.bgClass}`}>
-        <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: 'radial-gradient(circle at 80% 10%, rgba(244,208,62,0.15), transparent 30%), radial-gradient(circle at 10% 80%, rgba(46,138,87,0.12), transparent 35%)' }} />
-        <div className="relative h-full flex flex-col">
+      <div className={`story-shell relative w-full max-w-[420px] min-h-[620px] sm:min-h-[680px] rounded-[28px] p-6 sm:p-7 overflow-hidden border border-white/60 glass ${theme.bgClass}`}>
+        {theme.heroImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${theme.heroImage})`, opacity: 0.08 }}
+          />
+        )}
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.35, background: 'radial-gradient(circle at 80% 10%, rgba(244,208,62,0.15), transparent 30%), radial-gradient(circle at 10% 80%, rgba(46,138,87,0.12), transparent 35%)' }} />
+        <div className="absolute top-5 right-5 z-10">
+          <div className="h-10 w-24 bg-white/85 rounded-xl border border-white/70 shadow-sm flex items-center justify-center p-1">
+            <img src={gocongoLogo} alt="GoCongo logo" className="h-full object-contain" />
+          </div>
+        </div>
+        <div className="relative flex flex-col pt-14 sm:pt-16">
           {children}
         </div>
       </div>
@@ -302,16 +495,19 @@
             whileTap={{ scale: 0.99 }}
             className={`rounded-3xl text-left p-7 sm:p-9 border border-white/70 shadow-glow transition-all duration-300 ${brand.bgClass}`}
           >
+            <div className="relative h-40 rounded-2xl overflow-hidden mb-5 shadow-md">
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${brand.cardImage})` }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-transparent" />
+            </div>
             <div className="flex items-center gap-3 mb-4">
               <span className="h-12 w-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl" style={{ background: brand.palette.primary }}>
                 <i className="fa-solid fa-leaf"></i>
               </span>
               <div>
-                <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.1em]">2024 Wrapped</p>
+                <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.1em]">{brand.yearTag}</p>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-deepearth">{brand.label}</h2>
               </div>
             </div>
-            <p className="text-slate-600 text-base leading-relaxed">{brand.tagline}</p>
             <div className="flex items-center gap-2 mt-6">
               {Object.values(brand.palette).slice(0, 4).map((clr, idx) => (
                 <span key={idx} className="h-2.5 flex-1 rounded-full" style={{ background: clr }}></span>
@@ -324,17 +520,17 @@
 
     const buildSlides = (brandKey) => {
       const theme = brandThemes[brandKey];
-      const data = wrappedData.wrapped_data[brandKey];
+      const data = gocongoData[brandKey];
+      const isBiscuits = brandKey === 'biscuits';
+      const product = data.top_performers?.top_product || {};
+      const productShare = parsePercentValue(isBiscuits ? product.percentage_of_total_volume : product.percentage_of_total);
+      const fieldsPerIcon = data.summary_stats?.equivalent_football_fields ? Math.ceil(data.summary_stats.equivalent_football_fields / 10) : 0;
       const slides = [];
 
       slides.push({
         key: 'intro',
         content: (
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between">
-              <Pill text="GoCongo Family" color={theme.palette.brand} />
-              <Pill text="2024 Wrapped" color={theme.palette.gold} />
-            </div>
             <div className="mt-auto mb-auto">
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
@@ -342,12 +538,13 @@
                 transition={{ delay: 0.1, duration: 0.6 }}
                 className="text-4xl sm:text-5xl font-extrabold text-deepearth leading-tight"
               >
-                {data.category_name} 2024
-                <br /> Wrapped
+                {theme.yearTag}
+                {!theme.yearTag.toLowerCase().includes((data.category_name || '').toLowerCase()) && (
+                  <>
+                    <br /> {data.category_name}
+                  </>
+                )}
               </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.5 }} className="text-slate-600 mt-4 text-lg">
-                {brandKey === 'biscuits' ? 'Sweet, bright, and fast-growing across every zone.' : 'Bold cuts, organic heritage, and steady demand across markets.'}
-              </motion.p>
             </div>
             <div className="flex items-center gap-3 mt-auto pt-6">
               <span className="h-12 w-12 rounded-2xl flex items-center justify-center text-white text-xl" style={{ background: theme.palette.primary }}>
@@ -366,48 +563,78 @@
         key: 'volume',
         content: (
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-4">
-              <Pill text="Volume" color={theme.palette.primary} />
-              <Pill text="Momentum" color={theme.palette.accent || theme.palette.gold} />
-            </div>
+            <div className="h-1"></div>
             <h2 className="text-2xl font-extrabold text-deepearth">We moved serious volume.</h2>
-            <p className="text-slate-600 mt-2">Tonnage and cartons raced ahead with energetic demand.</p>
-            <div className="grid grid-cols-2 gap-3 mt-6">
-              <CountBadge value={data.summary_stats.total_tonnage} label="Total Tonnage (T)" color={theme.palette.primary} />
-              {data.summary_stats.total_cartons && (
-                <CountBadge value={data.summary_stats.total_cartons} label="Cartons" color={theme.palette.accent || theme.palette.gold} />
-              )}
-            </div>
-            {data.summary_stats.total_units && (
-              <div className="mt-4">
-                <p className="text-sm text-slate-500 font-semibold">Units Shipped</p>
-                <p className="text-2xl font-extrabold" style={{ color: theme.palette.dark }}>{formatNumber(data.summary_stats.total_units)}</p>
-              </div>
-            )}
+            {buildVolumeStory() && <p className="text-slate-600 mt-2 leading-relaxed">{buildVolumeStory()}</p>}
+            <VolumeFlow data={data} theme={theme} brandKey={brandKey} />
           </div>
         ),
       });
+
+      if (brandKey === 'biscuits') {
+        slides.push({
+          key: 'wheat-story',
+          content: (
+            <div className="flex flex-col h-full">
+              <div className="h-1"></div>
+              <h2 className="text-2xl font-extrabold text-deepearth">Fields that feed the ovens.</h2>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                22.4K tons of biscuits required wheat from about {formatNumber(data.summary_stats.equivalent_football_fields)} full-sized football fields.
+              </p>
+              <KpiCard delay={0.1} className="mt-5 rounded-3xl border border-white/70 bg-white/92 shadow-sm p-5 flex flex-col gap-4">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-deepearth">{formatNumber(data.summary_stats.equivalent_football_fields)}</span>
+                  <span className="text-sm font-semibold text-slate-600">football fields</span>
+                </div>
+                <div className="grid grid-cols-5 gap-2">
+                  {Array.from({ length: 10 }).map((_, idx) => (
+                    <div key={idx} className="aspect-square rounded-xl flex flex-col items-center justify-center gap-1" style={{ background: theme.palette.light, color: theme.palette.primary }}>
+                      <i className="fa-solid fa-futbol text-lg"></i>
+                      <span className="text-[11px] font-semibold text-slate-600">{fieldsPerIcon}</span>
+                    </div>
+                  ))}
+                </div>
+              </KpiCard>
+            </div>
+          ),
+        });
+      }
 
       slides.push({
         key: 'peak',
         content: (
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-4">
-              <Pill text="Peak Moments" color={theme.palette.gold} />
-              <Pill text="Highest Energy" color={theme.palette.brand} />
-            </div>
-            <h2 className="text-2xl font-extrabold text-deepearth">We spiked hard.</h2>
+            <div className="h-1"></div>
+            <h2 className="text-2xl font-extrabold text-deepearth">Record breakers.</h2>
             <div className="grid grid-cols-1 gap-3 mt-4">
-              <div className="rounded-2xl p-4 bg-white/80 border border-white/70 shadow-sm">
-                <p className="text-sm font-semibold text-slate-500 uppercase">Highest Day</p>
-                <p className="text-xl font-bold text-deepearth mt-1">{data.peak_performance.highest_day.date}</p>
-                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.peak_performance.highest_day.tonnage}T · ${formatNumber(data.peak_performance.highest_day.cartons)} cartons` : `${data.peak_performance.highest_day.tonnage}`}</p>
-              </div>
-              <div className="rounded-2xl p-4 bg-white/80 border border-white/70 shadow-sm">
-                <p className="text-sm font-semibold text-slate-500 uppercase">Highest Week</p>
-                <p className="text-xl font-bold text-deepearth mt-1">Week {data.peak_performance.highest_week.week_number}</p>
-                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.peak_performance.highest_week.tonnage}T · ${formatNumber(data.peak_performance.highest_week.cartons)} cartons` : `${data.peak_performance.highest_week.tonnage}T`}</p>
-              </div>
+              <KpiCard delay={0.05} className="rounded-2xl p-5 bg-slate-900/95 text-white shadow-md border border-slate-800">
+                <p className="text-xs font-semibold uppercase text-slate-300 tracking-[0.08em]">Highest Day · {data.peak_performance.highest_day.date}</p>
+                <div className="mt-3 flex items-baseline gap-3">
+                  <span className="text-5xl sm:text-6xl font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.brand || '#2E8A57' }}>
+                    {brandKey === 'biscuits' ? `${data.peak_performance.highest_day.tonnage}T` : `${data.peak_performance.highest_day.tonnage}`}
+                  </span>
+                  <span className="text-lg text-emerald-300"><i className="fa-solid fa-arrow-trend-up"></i></span>
+                </div>
+                {brandKey === 'biscuits' && (
+                  <p className="text-sm text-slate-200 mt-2" style={{ fontFamily: 'Space Mono, monospace' }}>
+                    {formatNumber(data.peak_performance.highest_day.cartons)} cartons
+                  </p>
+                )}
+              </KpiCard>
+              <KpiCard delay={0.12} className="rounded-2xl p-5 bg-slate-900/95 text-white shadow-md border border-slate-800">
+                <p className="text-xs font-semibold uppercase text-slate-300 tracking-[0.08em]">Highest Week · Week {data.peak_performance.highest_week.week_number}</p>
+                <div className="mt-3 flex items-baseline gap-3">
+                  <span className="text-5xl sm:text-6xl font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.brand || '#2E8A57' }}>
+                    {brandKey === 'biscuits' ? `${data.peak_performance.highest_week.tonnage}T` : `${data.peak_performance.highest_week.tonnage}T`}
+                  </span>
+                  <span className="text-lg text-emerald-300"><i className="fa-solid fa-arrow-trend-up"></i></span>
+                </div>
+                {brandKey === 'biscuits' && (
+                  <p className="text-sm text-slate-200 mt-2" style={{ fontFamily: 'Space Mono, monospace' }}>
+                    {formatNumber(data.peak_performance.highest_week.cartons)} cartons
+                  </p>
+                )}
+              </KpiCard>
             </div>
           </div>
         ),
@@ -417,23 +644,77 @@
         key: 'top-product',
         content: (
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-4">
-              <Pill text="Top Product" color={theme.palette.primary} />
-              <Pill text="Hero" color={theme.palette.accent || theme.palette.gold} />
-            </div>
-            <h2 className="text-2xl font-extrabold text-deepearth">{data.top_performers.top_product.name}</h2>
-            <p className="text-slate-600 mt-1">{brandKey === 'biscuits' ? `${data.top_performers.top_product.total_unique_skus} SKUs · ${formatNumber(data.top_performers.top_product.cartons)} cartons` : `${data.top_performers.top_product.total_unique_skus} SKUs`}</p>
-            <div className="mt-5 rounded-2xl border border-white/70 bg-white/90 shadow-sm p-4">
-              <p className="text-sm text-slate-500 font-semibold">Share of volume</p>
-              <div className="flex items-end gap-3 mt-2">
-                <p className="text-4xl font-extrabold" style={{ color: theme.palette.primary }}>
-                  {brandKey === 'biscuits' ? data.top_performers.top_product.percentage_of_total_volume : data.top_performers.top_product.percentage_of_total}
-                </p>
-                <span className="text-sm text-slate-500">of total</span>
+            <div className="h-1"></div>
+            <h2 className="text-2xl font-extrabold text-deepearth">Hero SKU: {product.name}</h2>
+            {isBiscuits ? (
+              <p className="text-slate-600 mt-1">
+                {`Out of ${formatNumber(product.total_unique_skus)} biscuit SKUs, one stood out. ${formatNumber(product.cartons)} cartons for this hero.`}
+              </p>
+            ) : (
+              <div className="mt-1 space-y-1">
+                <p className="text-slate-600">Out of {formatNumber(product.total_unique_skus)} unique SKUs, one stood out.</p>
               </div>
-              <div className="mt-3 h-2 rounded-full bg-slate-200 overflow-hidden">
-                <div className="h-full" style={{ width: brandKey === 'biscuits' ? data.top_performers.top_product.percentage_of_total_volume : data.top_performers.top_product.percentage_of_total, background: `linear-gradient(90deg, ${theme.palette.primary}, ${theme.palette.accent || theme.palette.gold})` }}></div>
+            )}
+            <div className="mt-5 flex flex-col gap-4">
+              <div className="relative w-full h-40 rounded-3xl overflow-hidden border border-white/70 shadow-sm">
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${productHeroImages[brandKey] || productHeroImages.biscuits})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/10 to-transparent" />
               </div>
+              <KpiCard delay={0.08} className="rounded-3xl border border-white/70 bg-white/92 shadow-sm p-5 flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="h-10 w-10 rounded-xl flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
+                    <i className={`fa-solid ${isBiscuits ? 'fa-cookie-bite' : 'fa-drumstick-bite'}`}></i>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-500 uppercase tracking-[0.08em]">Dominates the lineup</p>
+                    <p className="text-base font-semibold text-deepearth">
+                      {isBiscuits ? 'Extra Classic alone is over half of biscuits.' : `${product.name} leads chilled volume for Frigocongo.`}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <DonutStat percent={productShare || (isBiscuits ? 55 : 0)} label={isBiscuits ? 'of biscuits' : 'of Frigocongo'} theme={theme} />
+                  <div className="flex flex-col gap-3">
+                    {isBiscuits ? (
+                      <>
+                        <div>
+                          <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.08em]">Cartons moved</p>
+                          <p className="text-2xl font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.primary }}>
+                            {formatCompactNumber(product.cartons)}
+                          </p>
+                          <p className="text-xs text-slate-500">{productShare || 55}% of category volume</p>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.08em]">Biscuits sold</p>
+                          <p className="text-lg font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.dark }}>
+                            {formatCompactNumber(product.units || 773696568)}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.08em]">Tonnage moved</p>
+                          <p className="text-2xl font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.primary }}>
+                            {formatNumber(product.tonnage)}T
+                          </p>
+                          <p className="text-xs text-slate-500">{productShare}% of category volume</p>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.08em]">Unique SKUs tracked</p>
+                          <p className="text-lg font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.dark }}>
+                            {formatNumber(product.total_unique_skus)}
+                          </p>
+                          <p className="text-xs text-slate-500">one hero pulled ahead</p>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </KpiCard>
             </div>
           </div>
         ),
@@ -443,103 +724,163 @@
         key: 'geo',
         content: (
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-4">
-              <Pill text="Geography" color={theme.palette.brand} />
-              <Pill text="Fans" color={theme.palette.dark} />
-            </div>
+            <div className="h-1"></div>
             <h2 className="text-2xl font-extrabold text-deepearth">Where we win.</h2>
-            <div className="grid grid-cols-1 gap-3 mt-4">
-              <div className="rounded-2xl p-4 bg-white/85 border border-white/70 shadow-sm">
-                <p className="text-sm text-slate-500 font-semibold">Top Client</p>
-                <p className="text-xl font-bold text-deepearth">{data.top_performers.top_client.name}</p>
-                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.top_performers.top_client.percentage_of_total_volume} of volume` : `${data.top_performers.top_client.percentage_of_total} of volume`}</p>
-              </div>
-              <div className="rounded-2xl p-4 bg-white/85 border border-white/70 shadow-sm">
-                <p className="text-sm text-slate-500 font-semibold">Top Zone</p>
-                <p className="text-xl font-bold text-deepearth">{brandKey === 'biscuits' ? data.top_performers.top_open_market_zone.name : data.top_performers.top_zone.name}</p>
-                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.top_performers.top_open_market_zone.percentage_of_open_market_volume} of open market` : `${data.top_performers.top_zone.percentage_of_open_market_sales} of open market`}</p>
-              </div>
-            </div>
-          </div>
-        ),
-      });
-
-      slides.push({
-        key: 'fun',
-        content: (
-          <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-4">
-              <Pill text="Fun Fact" color={theme.palette.gold} />
-              <Pill text="Feel Good" color={theme.palette.accent || theme.palette.brand} />
-            </div>
-            {brandKey === 'biscuits' ? (
-              <div className="space-y-3">
-                <h2 className="text-2xl font-extrabold text-deepearth">Fields for days.</h2>
-                <p className="text-slate-600">We harvested enough wheat to cover <span className="font-bold" style={{ color: theme.palette.primary }}>{formatNumber(data.summary_stats.equivalent_football_fields)}</span> football fields.</p>
-                <div className="grid grid-cols-5 gap-2 mt-4">
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <div key={i} className="aspect-square rounded-xl flex items-center justify-center text-lg" style={{ background: theme.palette.light, color: theme.palette.primary }}>
-                      <i className="fa-solid fa-futbol"></i>
+            <p className="text-slate-600 mt-1">
+              {brandKey === 'biscuits'
+                ? `Out of ${formatNumber(data.top_performers.top_client.total_unique_clients)} unique clients, ${data.top_performers.top_client.name} stood out with ${data.top_performers.top_client.percentage_of_total_volume} of biscuit sales.`
+                : `Out of ${formatNumber(data.top_performers.top_client.total_unique_clients)} unique clients, ${data.top_performers.top_client.name} led with ${data.top_performers.top_client.percentage_of_total} of sales.`}
+            </p>
+            <div className="mt-5 space-y-4">
+              <KpiCard delay={0.05} className="rounded-3xl p-5 bg-white/92 border border-white/70 shadow-sm">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-3">
+                    <span className="h-11 w-11 rounded-2xl flex items-center justify-center text-white shadow-sm" style={{ background: theme.palette.primary }}>
+                      <i className="fa-solid fa-handshake"></i>
+                    </span>
+                    <div>
+                      <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.08em]">Top client</p>
+                      <p className="text-xl font-black text-deepearth leading-tight">{data.top_performers.top_client.name}</p>
+                      <p className="text-sm text-slate-600 mt-1">
+                        {brandKey === 'biscuits'
+                          ? `${data.top_performers.top_client.percentage_of_total_volume} of biscuit volume`
+                          : `${data.top_performers.top_client.percentage_of_total} of total sales`}
+                      </p>
                     </div>
-                  ))}
+                  </div>
+                  <DonutStat
+                    percent={
+                      parsePercentValue(
+                        brandKey === 'biscuits'
+                          ? data.top_performers.top_client.percentage_of_total_volume
+                          : data.top_performers.top_client.percentage_of_total
+                      )
+                    }
+                    label="share"
+                    theme={theme}
+                  />
                 </div>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                <h2 className="text-2xl font-extrabold text-deepearth">Morceaux of the Year.</h2>
-                <p className="text-slate-600">Premium cuts that fans came back for again and again.</p>
-                <div className="flex flex-wrap gap-3 mt-2">
-                  {data.morceaux_of_the_year.map((item) => (
-                    <div key={item.name} className="rounded-2xl px-4 py-3 bg-white/90 border border-white/70 shadow-sm flex items-center gap-3">
-                      <span className="h-10 w-10 rounded-full flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
-                        <i className="fa-solid fa-drumstick-bite"></i>
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold text-deepearth">{item.name}</p>
-                        <p className="text-xs text-slate-500">{item.tonnage}T · {item.percentage_of_total_morceaux}</p>
-                      </div>
+                {brandKey === 'frigocongo' ? (
+                  <>
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      {typeof data.top_performers.top_client.tonnage === 'number' && (
+                        <KpiCard delay={0.16} className="rounded-2xl px-3 py-2 bg-white/80 border border-white/80 shadow-sm flex items-center gap-2">
+                          <span className="h-8 w-8 rounded-xl flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
+                            <i className="fa-solid fa-weight-hanging text-sm"></i>
+                          </span>
+                          <div>
+                            <p className="text-[11px] uppercase font-semibold text-slate-500 tracking-[0.08em]">Tonnage</p>
+                            <p className="text-sm font-bold text-deepearth">{formatNumber(data.top_performers.top_client.tonnage)}T</p>
+                          </div>
+                        </KpiCard>
+                      )}
+                      {typeof data.top_performers.top_client.total_unique_clients === 'number' && (
+                        <KpiCard delay={0.22} className="rounded-2xl px-3 py-2 bg-white/80 border border-white/80 shadow-sm flex items-center gap-2">
+                          <span className="h-8 w-8 rounded-xl flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
+                            <i className="fa-solid fa-users text-sm"></i>
+                          </span>
+                          <div>
+                            <p className="text-[11px] uppercase font-semibold text-slate-500 tracking-[0.08em]">Unique clients</p>
+                            <p className="text-sm font-bold text-deepearth">{formatNumber(data.top_performers.top_client.total_unique_clients)}</p>
+                          </div>
+                        </KpiCard>
+                      )}
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        ),
-      });
+                  </>
+                ) : (
+                  <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {typeof data.top_performers.top_client.tonnage === 'number' && (
+                      <KpiCard delay={0.14} className="rounded-2xl px-3 py-2 bg-white/80 border border-white/80 shadow-sm flex items-center gap-2">
+                        <span className="h-8 w-8 rounded-xl flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
+                          <i className="fa-solid fa-weight-hanging text-sm"></i>
+                        </span>
+                        <div>
+                          <p className="text-[11px] uppercase font-semibold text-slate-500 tracking-[0.08em]">Tonnage</p>
+                          <p className="text-sm font-bold text-deepearth">{formatNumber(data.top_performers.top_client.tonnage)}T</p>
+                        </div>
+                      </KpiCard>
+                    )}
+                    {typeof data.top_performers.top_client.cartons === 'number' && (
+                      <KpiCard delay={0.2} className="rounded-2xl px-3 py-2 bg-white/80 border border-white/80 shadow-sm flex items-center gap-2">
+                        <span className="h-8 w-8 rounded-xl flex items-center justify-center text-white" style={{ background: theme.palette.accent }}>
+                          <i className="fa-solid fa-box-open text-sm"></i>
+                        </span>
+                        <div>
+                          <p className="text-[11px] uppercase font-semibold text-slate-500 tracking-[0.08em]">Cartons</p>
+                          <p className="text-sm font-bold text-deepearth">{formatCompactNumber(data.top_performers.top_client.cartons)}</p>
+                        </div>
+                      </KpiCard>
+                    )}
+                    {typeof data.top_performers.top_client.units === 'number' && (
+                      <KpiCard delay={0.26} className="rounded-2xl px-3 py-2 bg-white/80 border border-white/80 shadow-sm flex items-center gap-2">
+                        <span className="h-8 w-8 rounded-xl flex items-center justify-center text-white" style={{ background: theme.palette.dark }}>
+                          <i className="fa-solid fa-bag-shopping text-sm"></i>
+                        </span>
+                        <div>
+                          <p className="text-[11px] uppercase font-semibold text-slate-500 tracking-[0.08em]">Units</p>
+                          <p className="text-sm font-bold text-deepearth">{formatCompactNumber(data.top_performers.top_client.units, 2)}</p>
+                        </div>
+                      </KpiCard>
+                    )}
+                  </div>
+                )}
+              </KpiCard>
 
-      slides.push({
-        key: 'summary',
-        content: (
-          <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-4">
-              <Pill text="Shareable" color={theme.palette.primary} />
-              <Pill text="2024 Recap" color={theme.palette.dark} />
-            </div>
-            <div className="rounded-3xl p-5 bg-white/90 border border-white/70 shadow-lg flex flex-col gap-3">
-              <div className="flex items-center gap-3">
-                <span className="h-12 w-12 rounded-2xl flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
-                  <i className="fa-solid fa-share-nodes"></i>
-                </span>
-                <div>
-                  <p className="text-sm text-slate-500 font-semibold">{theme.label}</p>
-                  <p className="text-xl font-extrabold text-deepearth">Wrapped 2024</p>
+              <KpiCard delay={0.14} className="relative rounded-3xl p-5 bg-slate-900/95 text-white shadow-md border border-slate-800 overflow-hidden">
+                <div className="absolute inset-0 opacity-30" style={{ background: `radial-gradient(circle at 80% 20%, ${theme.palette.primary}33, transparent 30%)` }} />
+                <div className="relative flex flex-col gap-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase font-semibold text-slate-300 tracking-[0.08em]">Top zone</p>
+                      <p className="text-xl font-black leading-tight">
+                        {brandKey === 'biscuits' ? data.top_performers.top_open_market_zone.name : data.top_performers.top_zone.name}
+                      </p>
+                      <p className="text-sm text-slate-200 mt-1">
+                        {brandKey === 'biscuits'
+                          ? `${data.top_performers.top_open_market_zone.percentage_of_open_market_volume} of open market volume`
+                          : `${data.top_performers.top_zone.percentage_of_open_market_sales} of open market sales`}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-3xl font-black" style={{ fontFamily: 'Space Mono, monospace', color: theme.palette.gold || '#F4D03E' }}>
+                        {parsePercentValue(
+                          brandKey === 'biscuits'
+                            ? data.top_performers.top_open_market_zone.percentage_of_open_market_volume
+                            : data.top_performers.top_zone.percentage_of_open_market_sales
+                        )}
+                        %
+                      </p>
+                      <p className="text-[11px] uppercase text-slate-300">Open market</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <KpiCard delay={0.18} className="rounded-2xl p-3 bg-white/10 border border-white/10 min-w-[140px]">
+                      <p className="text-[11px] uppercase font-semibold text-slate-300 tracking-[0.08em]">Tonnage</p>
+                      <p className="text-xl font-black" style={{ fontFamily: 'Space Mono, monospace' }}>
+                        {formatNumber(brandKey === 'biscuits' ? data.top_performers.top_open_market_zone.tonnage : data.top_performers.top_zone.tonnage)}T
+                      </p>
+                      <p className="text-xs text-slate-300">kept the lanes busy</p>
+                    </KpiCard>
+                    {brandKey === 'biscuits' && typeof data.top_performers.top_open_market_zone.cartons === 'number' && (
+                      <KpiCard delay={0.24} className="rounded-2xl p-3 bg-white/10 border border-white/10 min-w-[140px]">
+                        <p className="text-[11px] uppercase font-semibold text-slate-300 tracking-[0.08em]">Cartons</p>
+                        <p className="text-xl font-black" style={{ fontFamily: 'Space Mono, monospace' }}>
+                          {formatCompactNumber(data.top_performers.top_open_market_zone.cartons)}
+                        </p>
+                        <p className="text-xs text-slate-300">across the zone</p>
+                      </KpiCard>
+                    )}
+                    {brandKey !== 'biscuits' && data.top_performers.top_channel && (
+                      <KpiCard delay={0.24} className="rounded-2xl p-3 bg-white/10 border border-white/10 min-w-[160px]">
+                        <p className="text-[11px] uppercase font-semibold text-slate-300 tracking-[0.08em]">Top channel</p>
+                        <p className="text-base font-semibold">{data.top_performers.top_channel.name}</p>
+                        <p className="text-xs text-slate-300">{data.top_performers.top_channel.percentage_of_total} of sales</p>
+                      </KpiCard>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <CountBadge value={data.summary_stats.total_tonnage} label="Tonnage" color={theme.palette.primary} />
-                {data.engagement?.total_orders && <CountBadge value={data.engagement.total_orders} label="Orders" color={theme.palette.accent || theme.palette.gold} />}
-              </div>
-              <div className="flex items-center justify-between mt-2">
-                <div>
-                  <p className="text-sm text-slate-500">Hero Product</p>
-                  <p className="text-base font-semibold text-deepearth">{data.top_performers.top_product.name}</p>
-                </div>
-                <button className="px-4 py-2 rounded-full text-white font-semibold shadow-md" style={{ background: theme.palette.primary }}>
-                  Save Card
-                </button>
-              </div>
+              </KpiCard>
             </div>
-            <p className="text-center text-slate-500 text-xs mt-3">Auto-advances every 6s · Tap left/right to navigate</p>
           </div>
         ),
       });
@@ -553,11 +894,6 @@
       const [index, setIndex] = useState(0);
 
       useEffect(() => setIndex(0), [brandKey]);
-
-      useEffect(() => {
-        const timer = setTimeout(() => setIndex((prev) => (prev + 1) % slides.length), 6000);
-        return () => clearTimeout(timer);
-      }, [index, slides.length]);
 
       const goPrev = () => setIndex((prev) => (prev - 1 + slides.length) % slides.length);
       const goNext = () => setIndex((prev) => (prev + 1) % slides.length);
@@ -617,8 +953,7 @@
               <div className="space-y-8">
                 <div>
                   <Pill text="Choose a brand" color={brandThemes.biscuits.palette.brand} />
-                  <h1 className="text-4xl sm:text-5xl font-extrabold text-deepearth mt-3">GoCongo Wrapped 2024</h1>
-                  <p className="text-slate-600 mt-2">Pick your story to enter a Spotify Wrapped style journey.</p>
+                  <h1 className="text-4xl sm:text-5xl font-extrabold text-deepearth mt-3">GoCongo 2025</h1>
                 </div>
                 <BrandSelector onPick={setBrand} />
               </div>
