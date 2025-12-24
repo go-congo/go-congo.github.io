@@ -902,7 +902,7 @@
         <div className="w-full flex flex-col items-center gap-4">
           <div className="w-full flex items-center justify-between">
             <button onClick={onBack} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-deepearth">
-              <i className="fa-solid fa-arrow-left"></i> Brands
+              <i className="fa-solid fa-arrow-left"></i> Home
             </button>
             <div className="text-right">
               <p className="text-xs text-slate-500">Now playing</p>
@@ -952,7 +952,7 @@
             {!brand ? (
               <div className="space-y-8">
                 <div>
-                  <Pill text="Choose a brand" color={brandThemes.biscuits.palette.brand} />
+                  <Pill text="Choose a Business Unit" color={brandThemes.biscuits.palette.brand} />
                   <h1 className="text-4xl sm:text-5xl font-extrabold text-deepearth mt-3">GoCongo 2025</h1>
                 </div>
                 <BrandSelector onPick={setBrand} />
