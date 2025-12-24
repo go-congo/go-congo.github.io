@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoCongo Wrapped 2024</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            gogreen: '#2E8A57',
+            deepearth: '#2D3E50',
+            harvestgold: '#F4D03E',
+            mistgrey: '#ECF0F1',
+            biscotorange: '#E67F22',
+            biscoblue: '#3598DB',
+            biscred: '#E84C3D',
+            meatred: '#BA1638',
+          },
+          boxShadow: {
+            glow: '0 20px 80px -30px rgba(46,138,87,0.45)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+    body {
+      background: radial-gradient(circle at 20% 20%, rgba(244, 208, 62, 0.12), transparent 25%),
+                  radial-gradient(circle at 80% 10%, rgba(46, 138, 87, 0.10), transparent 30%),
+                  linear-gradient(180deg, #f7f9f6 0%, #f1f6f2 100%);
+      min-height: 100vh;
+    }
+    .glass {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .biscuits-bg {
+      background: linear-gradient(135deg, #fff6ed 0%, #f8fbf5 100%);
+    }
+    .meat-bg {
+      background: linear-gradient(135deg, #fff7fa 0%, #f1fbf5 100%);
+    }
+    .story-shell {
+      box-shadow: 0 30px 90px -50px rgba(0,0,0,0.35), 0 10px 40px -20px rgba(46,138,87,0.25);
+    }
+  </style>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.umd.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="text-deepearth">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo, useRef } = React;
+    const { motion, AnimatePresence } = Motion;
+
+    const wrappedData = {
+      "wrapped_data": {
+        "biscuits": {
+          "category_name": "Biscuits",
+          "summary_stats": {
+            "total_tonnage": 22438,
+            "total_cartons": 5160680,
+            "total_units": 1418696980,
+            "wheat_flour_tonnage": 11219,
+            "hectares_harvested": 2805,
+            "equivalent_football_fields": 4000
+          },
+          "engagement": {
+            "total_orders": 63980,
+            "orders_per_day": 213.3
+          },
+          "peak_performance": {
+            "highest_week": {
+              "week_number": 2,
+              "tonnage": 743,
+              "cartons": 172003,
+              "units": 47771874
+            },
+            "highest_day": {
+              "date": "1st of October",
+              "tonnage": 255,
+              "cartons": 57772,
+              "units": 16757849
+            }
+          },
+          "top_performers": {
+            "top_product": {
+              "total_unique_skus": 12,
+              "name": "Extra Classic",
+              "tonnage": 11605,
+              "cartons": 2642656,
+              "units": 773696568,
+              "percentage_of_total_volume": "55%"
+            },
+            "top_client": {
+              "total_unique_clients": 6135,
+              "name": "ARC EN CIEL",
+              "tonnage": 1830,
+              "cartons": 408890,
+              "units": 125337316,
+              "percentage_of_total_volume": "91%"
+            },
+            "top_open_market_zone": {
+              "name": "Zone K 1",
+              "tonnage": 1124,
+              "cartons": 258840,
+              "units": 70258913,
+              "percentage_of_open_market_volume": "51%"
+            }
+          }
+        },
+        "frigocongo": {
+          "category_name": "Frigocongo",
+          "summary_stats": {
+            "total_tonnage": 2522
+          },
+          "engagement": {
+            "total_orders": 31866,
+            "orders_per_day": 106.2
+          },
+          "peak_performance": {
+            "highest_week": {
+              "week_number": 2,
+              "tonnage": 83
+            },
+            "highest_day": {
+              "date": "18th of January",
+              "tonnage": "36T"
+            }
+          },
+          "top_performers": {
+            "top_product": {
+              "total_unique_skus": 129,
+              "name": "Roti",
+              "tonnage": 658,
+              "percentage_of_total": "26%"
+            },
+            "top_client": {
+              "total_unique_clients": 6135,
+              "name": "BISO NA BISO",
+              "tonnage": 164,
+              "percentage_of_total": "6%"
+            },
+            "top_channel": {
+              "name": "Open Market",
+              "tonnage": 941,
+              "percentage_of_total": "37%"
+            },
+            "top_zone": {
+              "name": "Li1",
+              "tonnage": 109,
+              "percentage_of_open_market_sales": "11%"
+            }
+          },
+          "morceaux_of_the_year": [
+            {
+              "name": "Filet",
+              "tonnage": 20,
+              "percentage_of_total_morceaux": "19%"
+            },
+            {
+              "name": "Steak",
+              "tonnage": 21,
+              "percentage_of_total_morceaux": "19%"
+            }
+          ]
+        }
+      }
+    };
+
+    const brandThemes = {
+      biscuits: {
+        key: 'biscuits',
+        label: 'GoCongo · Biscuits',
+        tagline: 'Citrus energy and joyful crunch.',
+        palette: {
+          primary: '#E67F22',
+          accent: '#3598DB',
+          accent2: '#E84C3D',
+          brand: '#2E8A57',
+          dark: '#2D3E50',
+          light: '#ECF0F1',
+          gold: '#F4D03E',
+        },
+        bgClass: 'biscuits-bg',
+      },
+      frigocongo: {
+        key: 'frigocongo',
+        label: 'Frigocongo · Meat',
+        tagline: 'Organic heritage with bold cuts.',
+        palette: {
+          primary: '#BA1638',
+          accent: '#2E8A57',
+          brand: '#2E8A57',
+          dark: '#2D3E50',
+          light: '#ECF0F1',
+          gold: '#F4D03E',
+        },
+        bgClass: 'meat-bg',
+      },
+    };
+
+    const formatNumber = (value) => {
+      if (typeof value === 'string') return value;
+      return value.toLocaleString('en-US');
+    };
+
+    const useCountUp = (value, duration = 1200) => {
+      const [display, setDisplay] = useState(0);
+      const raf = useRef(null);
+      useEffect(() => {
+        const startValue = display;
+        const start = performance.now();
+        const step = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const next = startValue + (value - startValue) * progress;
+          setDisplay(next);
+          if (progress < 1) {
+            raf.current = requestAnimationFrame(step);
+          }
+        };
+        if (raf.current) cancelAnimationFrame(raf.current);
+        raf.current = requestAnimationFrame(step);
+        return () => raf.current && cancelAnimationFrame(raf.current);
+      }, [value, duration]);
+      return Math.round(display);
+    };
+
+    const CountBadge = ({ value, label, color }) => {
+      const animated = useCountUp(value);
+      return (
+        <div className="flex-1 rounded-2xl p-4 sm:p-5 bg-white shadow-md border border-white/60">
+          <p className="text-sm font-semibold text-slate-500 tracking-wide uppercase">{label}</p>
+          <p className="text-2xl sm:text-3xl font-extrabold mt-2" style={{ color }}>{formatNumber(animated)}</p>
+        </div>
+      );
+    };
+
+    const ProgressDots = ({ total, current, color }) => (
+      <div className="flex items-center gap-2 w-full mb-4 px-2">
+        {Array.from({ length: total }).map((_, idx) => {
+          const isActive = idx === current;
+          const isDone = idx < current;
+          return (
+            <div key={idx} className="flex-1 h-1.5 rounded-full bg-white/30 overflow-hidden">
+              {isDone && <div className="h-full w-full" style={{ backgroundColor: color }} />}
+              {isActive && (
+                <motion.div
+                  key={`active-${current}`}
+                  className="h-full"
+                  initial={{ width: '0%' }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 6, ease: 'easeInOut' }}
+                  style={{ backgroundColor: color }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+
+    const SlideFrame = ({ children, theme }) => (
+      <div className={`story-shell relative w-full aspect-[9/16] max-w-[420px] rounded-[28px] p-6 sm:p-7 overflow-hidden border border-white/60 glass ${theme.bgClass}`}>
+        <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: 'radial-gradient(circle at 80% 10%, rgba(244,208,62,0.15), transparent 30%), radial-gradient(circle at 10% 80%, rgba(46,138,87,0.12), transparent 35%)' }} />
+        <div className="relative h-full flex flex-col">
+          {children}
+        </div>
+      </div>
+    );
+
+    const Pill = ({ text, color }) => (
+      <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold shadow-sm" style={{ backgroundColor: color + '22', color }}>
+        <i className="fa-solid fa-sparkles text-[11px]"></i>
+        {text}
+      </span>
+    );
+
+    const BrandSelector = ({ onPick }) => (
+      <div className="grid md:grid-cols-2 gap-6 w-full">
+        {Object.values(brandThemes).map((brand) => (
+          <motion.button
+            key={brand.key}
+            onClick={() => onPick(brand.key)}
+            whileHover={{ y: -6, scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            className={`rounded-3xl text-left p-7 sm:p-9 border border-white/70 shadow-glow transition-all duration-300 ${brand.bgClass}`}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-12 w-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl" style={{ background: brand.palette.primary }}>
+                <i className="fa-solid fa-leaf"></i>
+              </span>
+              <div>
+                <p className="text-xs uppercase font-semibold text-slate-500 tracking-[0.1em]">2024 Wrapped</p>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-deepearth">{brand.label}</h2>
+              </div>
+            </div>
+            <p className="text-slate-600 text-base leading-relaxed">{brand.tagline}</p>
+            <div className="flex items-center gap-2 mt-6">
+              {Object.values(brand.palette).slice(0, 4).map((clr, idx) => (
+                <span key={idx} className="h-2.5 flex-1 rounded-full" style={{ background: clr }}></span>
+              ))}
+            </div>
+          </motion.button>
+        ))}
+      </div>
+    );
+
+    const buildSlides = (brandKey) => {
+      const theme = brandThemes[brandKey];
+      const data = wrappedData.wrapped_data[brandKey];
+      const slides = [];
+
+      slides.push({
+        key: 'intro',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between">
+              <Pill text="GoCongo Family" color={theme.palette.brand} />
+              <Pill text="2024 Wrapped" color={theme.palette.gold} />
+            </div>
+            <div className="mt-auto mb-auto">
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="text-4xl sm:text-5xl font-extrabold text-deepearth leading-tight"
+              >
+                {data.category_name} 2024
+                <br /> Wrapped
+              </motion.h1>
+              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.5 }} className="text-slate-600 mt-4 text-lg">
+                {brandKey === 'biscuits' ? 'Sweet, bright, and fast-growing across every zone.' : 'Bold cuts, organic heritage, and steady demand across markets.'}
+              </motion.p>
+            </div>
+            <div className="flex items-center gap-3 mt-auto pt-6">
+              <span className="h-12 w-12 rounded-2xl flex items-center justify-center text-white text-xl" style={{ background: theme.palette.primary }}>
+                <i className="fa-solid fa-seedling"></i>
+              </span>
+              <div>
+                <p className="text-sm text-slate-500">Powered by GoCongo</p>
+                <p className="text-base font-semibold text-deepearth">Cultivating prosperity.</p>
+              </div>
+            </div>
+          </div>
+        ),
+      });
+
+      slides.push({
+        key: 'volume',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Pill text="Volume" color={theme.palette.primary} />
+              <Pill text="Momentum" color={theme.palette.accent || theme.palette.gold} />
+            </div>
+            <h2 className="text-2xl font-extrabold text-deepearth">We moved serious volume.</h2>
+            <p className="text-slate-600 mt-2">Tonnage and cartons raced ahead with energetic demand.</p>
+            <div className="grid grid-cols-2 gap-3 mt-6">
+              <CountBadge value={data.summary_stats.total_tonnage} label="Total Tonnage (T)" color={theme.palette.primary} />
+              {data.summary_stats.total_cartons && (
+                <CountBadge value={data.summary_stats.total_cartons} label="Cartons" color={theme.palette.accent || theme.palette.gold} />
+              )}
+            </div>
+            {data.summary_stats.total_units && (
+              <div className="mt-4">
+                <p className="text-sm text-slate-500 font-semibold">Units Shipped</p>
+                <p className="text-2xl font-extrabold" style={{ color: theme.palette.dark }}>{formatNumber(data.summary_stats.total_units)}</p>
+              </div>
+            )}
+          </div>
+        ),
+      });
+
+      slides.push({
+        key: 'peak',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Pill text="Peak Moments" color={theme.palette.gold} />
+              <Pill text="Highest Energy" color={theme.palette.brand} />
+            </div>
+            <h2 className="text-2xl font-extrabold text-deepearth">We spiked hard.</h2>
+            <div className="grid grid-cols-1 gap-3 mt-4">
+              <div className="rounded-2xl p-4 bg-white/80 border border-white/70 shadow-sm">
+                <p className="text-sm font-semibold text-slate-500 uppercase">Highest Day</p>
+                <p className="text-xl font-bold text-deepearth mt-1">{data.peak_performance.highest_day.date}</p>
+                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.peak_performance.highest_day.tonnage}T · ${formatNumber(data.peak_performance.highest_day.cartons)} cartons` : `${data.peak_performance.highest_day.tonnage}`}</p>
+              </div>
+              <div className="rounded-2xl p-4 bg-white/80 border border-white/70 shadow-sm">
+                <p className="text-sm font-semibold text-slate-500 uppercase">Highest Week</p>
+                <p className="text-xl font-bold text-deepearth mt-1">Week {data.peak_performance.highest_week.week_number}</p>
+                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.peak_performance.highest_week.tonnage}T · ${formatNumber(data.peak_performance.highest_week.cartons)} cartons` : `${data.peak_performance.highest_week.tonnage}T`}</p>
+              </div>
+            </div>
+          </div>
+        ),
+      });
+
+      slides.push({
+        key: 'top-product',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Pill text="Top Product" color={theme.palette.primary} />
+              <Pill text="Hero" color={theme.palette.accent || theme.palette.gold} />
+            </div>
+            <h2 className="text-2xl font-extrabold text-deepearth">{data.top_performers.top_product.name}</h2>
+            <p className="text-slate-600 mt-1">{brandKey === 'biscuits' ? `${data.top_performers.top_product.total_unique_skus} SKUs · ${formatNumber(data.top_performers.top_product.cartons)} cartons` : `${data.top_performers.top_product.total_unique_skus} SKUs`}</p>
+            <div className="mt-5 rounded-2xl border border-white/70 bg-white/90 shadow-sm p-4">
+              <p className="text-sm text-slate-500 font-semibold">Share of volume</p>
+              <div className="flex items-end gap-3 mt-2">
+                <p className="text-4xl font-extrabold" style={{ color: theme.palette.primary }}>
+                  {brandKey === 'biscuits' ? data.top_performers.top_product.percentage_of_total_volume : data.top_performers.top_product.percentage_of_total}
+                </p>
+                <span className="text-sm text-slate-500">of total</span>
+              </div>
+              <div className="mt-3 h-2 rounded-full bg-slate-200 overflow-hidden">
+                <div className="h-full" style={{ width: brandKey === 'biscuits' ? data.top_performers.top_product.percentage_of_total_volume : data.top_performers.top_product.percentage_of_total, background: `linear-gradient(90deg, ${theme.palette.primary}, ${theme.palette.accent || theme.palette.gold})` }}></div>
+              </div>
+            </div>
+          </div>
+        ),
+      });
+
+      slides.push({
+        key: 'geo',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Pill text="Geography" color={theme.palette.brand} />
+              <Pill text="Fans" color={theme.palette.dark} />
+            </div>
+            <h2 className="text-2xl font-extrabold text-deepearth">Where we win.</h2>
+            <div className="grid grid-cols-1 gap-3 mt-4">
+              <div className="rounded-2xl p-4 bg-white/85 border border-white/70 shadow-sm">
+                <p className="text-sm text-slate-500 font-semibold">Top Client</p>
+                <p className="text-xl font-bold text-deepearth">{data.top_performers.top_client.name}</p>
+                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.top_performers.top_client.percentage_of_total_volume} of volume` : `${data.top_performers.top_client.percentage_of_total} of volume`}</p>
+              </div>
+              <div className="rounded-2xl p-4 bg-white/85 border border-white/70 shadow-sm">
+                <p className="text-sm text-slate-500 font-semibold">Top Zone</p>
+                <p className="text-xl font-bold text-deepearth">{brandKey === 'biscuits' ? data.top_performers.top_open_market_zone.name : data.top_performers.top_zone.name}</p>
+                <p className="text-sm text-slate-600">{brandKey === 'biscuits' ? `${data.top_performers.top_open_market_zone.percentage_of_open_market_volume} of open market` : `${data.top_performers.top_zone.percentage_of_open_market_sales} of open market`}</p>
+              </div>
+            </div>
+          </div>
+        ),
+      });
+
+      slides.push({
+        key: 'fun',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Pill text="Fun Fact" color={theme.palette.gold} />
+              <Pill text="Feel Good" color={theme.palette.accent || theme.palette.brand} />
+            </div>
+            {brandKey === 'biscuits' ? (
+              <div className="space-y-3">
+                <h2 className="text-2xl font-extrabold text-deepearth">Fields for days.</h2>
+                <p className="text-slate-600">We harvested enough wheat to cover <span className="font-bold" style={{ color: theme.palette.primary }}>{formatNumber(data.summary_stats.equivalent_football_fields)}</span> football fields.</p>
+                <div className="grid grid-cols-5 gap-2 mt-4">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div key={i} className="aspect-square rounded-xl flex items-center justify-center text-lg" style={{ background: theme.palette.light, color: theme.palette.primary }}>
+                      <i className="fa-solid fa-futbol"></i>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <h2 className="text-2xl font-extrabold text-deepearth">Morceaux of the Year.</h2>
+                <p className="text-slate-600">Premium cuts that fans came back for again and again.</p>
+                <div className="flex flex-wrap gap-3 mt-2">
+                  {data.morceaux_of_the_year.map((item) => (
+                    <div key={item.name} className="rounded-2xl px-4 py-3 bg-white/90 border border-white/70 shadow-sm flex items-center gap-3">
+                      <span className="h-10 w-10 rounded-full flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
+                        <i className="fa-solid fa-drumstick-bite"></i>
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold text-deepearth">{item.name}</p>
+                        <p className="text-xs text-slate-500">{item.tonnage}T · {item.percentage_of_total_morceaux}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ),
+      });
+
+      slides.push({
+        key: 'summary',
+        content: (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Pill text="Shareable" color={theme.palette.primary} />
+              <Pill text="2024 Recap" color={theme.palette.dark} />
+            </div>
+            <div className="rounded-3xl p-5 bg-white/90 border border-white/70 shadow-lg flex flex-col gap-3">
+              <div className="flex items-center gap-3">
+                <span className="h-12 w-12 rounded-2xl flex items-center justify-center text-white" style={{ background: theme.palette.primary }}>
+                  <i className="fa-solid fa-share-nodes"></i>
+                </span>
+                <div>
+                  <p className="text-sm text-slate-500 font-semibold">{theme.label}</p>
+                  <p className="text-xl font-extrabold text-deepearth">Wrapped 2024</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <CountBadge value={data.summary_stats.total_tonnage} label="Tonnage" color={theme.palette.primary} />
+                {data.engagement?.total_orders && <CountBadge value={data.engagement.total_orders} label="Orders" color={theme.palette.accent || theme.palette.gold} />}
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <div>
+                  <p className="text-sm text-slate-500">Hero Product</p>
+                  <p className="text-base font-semibold text-deepearth">{data.top_performers.top_product.name}</p>
+                </div>
+                <button className="px-4 py-2 rounded-full text-white font-semibold shadow-md" style={{ background: theme.palette.primary }}>
+                  Save Card
+                </button>
+              </div>
+            </div>
+            <p className="text-center text-slate-500 text-xs mt-3">Auto-advances every 6s · Tap left/right to navigate</p>
+          </div>
+        ),
+      });
+
+      return slides;
+    };
+
+    const Story = ({ brandKey, onBack }) => {
+      const theme = brandThemes[brandKey];
+      const slides = useMemo(() => buildSlides(brandKey), [brandKey]);
+      const [index, setIndex] = useState(0);
+
+      useEffect(() => setIndex(0), [brandKey]);
+
+      useEffect(() => {
+        const timer = setTimeout(() => setIndex((prev) => (prev + 1) % slides.length), 6000);
+        return () => clearTimeout(timer);
+      }, [index, slides.length]);
+
+      const goPrev = () => setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+      const goNext = () => setIndex((prev) => (prev + 1) % slides.length);
+
+      return (
+        <div className="w-full flex flex-col items-center gap-4">
+          <div className="w-full flex items-center justify-between">
+            <button onClick={onBack} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-deepearth">
+              <i className="fa-solid fa-arrow-left"></i> Brands
+            </button>
+            <div className="text-right">
+              <p className="text-xs text-slate-500">Now playing</p>
+              <p className="font-semibold text-deepearth">{theme.label}</p>
+            </div>
+          </div>
+
+          <ProgressDots total={slides.length} current={index} color={theme.palette.primary} />
+
+          <div className="relative w-full flex items-center justify-center">
+            <button onClick={goPrev} className="hidden sm:flex absolute left-0 -ml-12 h-12 w-12 rounded-2xl bg-white shadow-md border border-white/70 items-center justify-center text-slate-600 hover:text-deepearth">
+              <i className="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={slides[index].key}
+                initial={{ x: 120, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -120, opacity: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="w-full flex justify-center"
+              >
+                <SlideFrame theme={theme}>{slides[index].content}</SlideFrame>
+              </motion.div>
+            </AnimatePresence>
+
+            <button onClick={goNext} className="hidden sm:flex absolute right-0 -mr-12 h-12 w-12 rounded-2xl bg-white shadow-md border border-white/70 items-center justify-center text-slate-600 hover:text-deepearth">
+              <i className="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div className="flex sm:hidden w-full justify-between text-slate-600 text-sm font-semibold">
+            <button onClick={goPrev} className="px-4 py-2 rounded-full bg-white shadow-sm border border-white/70">Prev</button>
+            <button onClick={goNext} className="px-4 py-2 rounded-full bg-white shadow-sm border border-white/70">Next</button>
+          </div>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const [brand, setBrand] = useState(null);
+
+      return (
+        <div className="min-h-screen flex items-center justify-center px-4 py-10">
+          <div className="w-full max-w-5xl">
+            {!brand ? (
+              <div className="space-y-8">
+                <div>
+                  <Pill text="Choose a brand" color={brandThemes.biscuits.palette.brand} />
+                  <h1 className="text-4xl sm:text-5xl font-extrabold text-deepearth mt-3">GoCongo Wrapped 2024</h1>
+                  <p className="text-slate-600 mt-2">Pick your story to enter a Spotify Wrapped style journey.</p>
+                </div>
+                <BrandSelector onPick={setBrand} />
+              </div>
+            ) : (
+              <Story brandKey={brand} onBack={() => setBrand(null)} />
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
