@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>CT26 Soil Samples - Kamina, DRC</title>
+  <script>L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <style>
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css" />
+  <script
+    src="https://cdn.jsdelivr.net/gh/python-visualization/folium@master/folium/templates/leaflet_heat.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <style>
+    #map_container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .legend {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 9999;
+      background-color: rgba(255, 255, 255, 0.92);
+      padding: 10px 12px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+      font-size: 12px;
+      line-height: 1.2;
+      display: none;
+    }
+
+    .legend-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .legend-gradient {
+      width: 200px;
+      height: 12px;
+      background: linear-gradient(to right, blue, lime, red);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .legend-labels {
+      display: flex;
+      justify-content: space-between;
+      width: 200px;
+      margin-top: 4px;
+    }
+
+    .legend-subtitle {
+      margin-top: 4px;
+      color: rgba(0, 0, 0, 0.65);
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="folium-map" id="map_container"></div>
+
+  <!-- LEGENDS -->
+  <div id="legend_ph" class="legend">
+    <div class="legend-title">pH</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>4.1</span><span>4.3</span><span>4.4</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_p" class="legend">
+    <div class="legend-title">Phosphorus (P) mg/kg</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>7</span><span>9</span><span>13</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_k" class="legend">
+    <div class="legend-title">Potassium (K) cmol/kg</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>0.23</span><span>0.4</span><span>1.18</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_ca" class="legend">
+    <div class="legend-title">Calcium (Ca) cmol/kg</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>0.25</span><span>0.44</span><span>0.93</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_mg" class="legend">
+    <div class="legend-title">Magnesium (Mg) cmol/kg</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>3.0</span><span>4.2</span><span>5.7</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_fe" class="legend">
+    <div class="legend-title">Iron (Fe) mg/kg</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>0.6</span><span>1.5</span><span>2.9</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_zn" class="legend">
+    <div class="legend-title">Zinc (Zn) mg/kg</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>0.34</span><span>0.47</span><span>0.98</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+  <div id="legend_acid" class="legend">
+    <div class="legend-title">Acid Saturation %</div>
+    <div class="legend-gradient"></div>
+    <div class="legend-labels"><span>15.2</span><span>21.9</span><span>31.3</span></div>
+    <div class="legend-subtitle">min / median / max</div>
+  </div>
+
+  <script>
+    var samples_data = [
+      {
+        "name": "Sample 1 Kamina south",
+        "lat": -8.742317797984564,
+        "lon": 24.927486291414276,
+        "s_code": "S1",
+        "chem": {
+          "Density": 74.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 9.0,
+          "K": 0.4,
+          "Na": 0.16,
+          "Ca": 0.46,
+          "Mg": 4.9,
+          "%Ca": 40.7,
+          "%Mg": 14.3,
+          "%K": 7.1,
+          "%Na": 12.1,
+          "Acid Saturation %": 25.8,
+          "Fe": 2.0,
+          "Mn": 0.4,
+          "Cu": 1.7,
+          "Zn": 0.47,
+          "S": 90.3,
+          "B": 106.4
+        }
+      },
+      {
+        "name": "Sample 2 Cassava Field",
+        "lat": -8.74862883735767,
+        "lon": 24.919989894763617,
+        "s_code": "S2",
+        "chem": {
+          "Density": 81.1,
+          "pH": 4.2,
+          "Exc. Acid": 0.18,
+          "P": 13.0,
+          "K": 0.42,
+          "Na": 0.22,
+          "Ca": 0.44,
+          "Mg": 4.1,
+          "%Ca": 44.2,
+          "%Mg": 21.9,
+          "%K": 9.1,
+          "%Na": 6.0,
+          "Acid Saturation %": 18.9,
+          "Fe": 2.4,
+          "Mn": 0.8,
+          "Cu": 0.7,
+          "Zn": 0.98,
+          "S": 5.3,
+          "B": 32.6
+        }
+      },
+      {
+        "name": "Sample 3 South",
+        "lat": -8.748628262114101,
+        "lon": 24.888945892092107,
+        "s_code": "S3",
+        "chem": {
+          "Density": 78.1,
+          "pH": 4.4,
+          "Exc. Acid": 0.08,
+          "P": 7.0,
+          "K": 0.23,
+          "Na": 0.14,
+          "Ca": 0.25,
+          "Mg": 3.0,
+          "%Ca": 37.6,
+          "%Mg": 17.5,
+          "%K": 12.0,
+          "%Na": 11.0,
+          "Acid Saturation %": 21.9,
+          "Fe": 1.5,
+          "Mn": 0.3,
+          "Cu": 0.9,
+          "Zn": 0.34,
+          "S": 119.5,
+          "B": 8.9
+        }
+      },
+      {
+        "name": "Sample One North Grass Area Marshy",
+        "lat": -8.72529158695915,
+        "lon": 24.918681122958862,
+        "s_code": "S1",
+        "chem": {
+          "Density": 74.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 9.0,
+          "K": 0.4,
+          "Na": 0.16,
+          "Ca": 0.46,
+          "Mg": 4.9,
+          "%Ca": 40.7,
+          "%Mg": 14.3,
+          "%K": 7.1,
+          "%Na": 12.1,
+          "Acid Saturation %": 25.8,
+          "Fe": 2.0,
+          "Mn": 0.4,
+          "Cu": 1.7,
+          "Zn": 0.47,
+          "S": 90.3,
+          "B": 106.4
+        }
+      },
+      {
+        "name": "Sample 2 North Higher Ground",
+        "lat": -8.727128156088039,
+        "lon": 24.92369983478416,
+        "s_code": "S2",
+        "chem": {
+          "Density": 81.1,
+          "pH": 4.2,
+          "Exc. Acid": 0.18,
+          "P": 13.0,
+          "K": 0.42,
+          "Na": 0.22,
+          "Ca": 0.44,
+          "Mg": 4.1,
+          "%Ca": 44.2,
+          "%Mg": 21.9,
+          "%K": 9.1,
+          "%Na": 6.0,
+          "Acid Saturation %": 18.9,
+          "Fe": 2.4,
+          "Mn": 0.8,
+          "Cu": 0.7,
+          "Zn": 0.98,
+          "S": 5.3,
+          "B": 32.6
+        }
+      },
+      {
+        "name": "Sample 3 North",
+        "lat": -8.73396343831857,
+        "lon": 24.908083647020156,
+        "s_code": "S3",
+        "chem": {
+          "Density": 78.1,
+          "pH": 4.4,
+          "Exc. Acid": 0.08,
+          "P": 7.0,
+          "K": 0.23,
+          "Na": 0.14,
+          "Ca": 0.25,
+          "Mg": 3.0,
+          "%Ca": 37.6,
+          "%Mg": 17.5,
+          "%K": 12.0,
+          "%Na": 11.0,
+          "Acid Saturation %": 21.9,
+          "Fe": 1.5,
+          "Mn": 0.3,
+          "Cu": 0.9,
+          "Zn": 0.34,
+          "S": 119.5,
+          "B": 8.9
+        }
+      },
+      {
+        "name": "Sample4 North",
+        "lat": -8.733026375922579,
+        "lon": 24.882159516629404,
+        "s_code": "S4",
+        "chem": {
+          "Density": 81.7,
+          "pH": 4.4,
+          "Exc. Acid": 0.07,
+          "P": 11.0,
+          "K": 0.32,
+          "Na": 0.02,
+          "Ca": 0.7,
+          "Mg": 3.7,
+          "%Ca": 26.5,
+          "%Mg": 8.7,
+          "%K": 14.3,
+          "%Na": 32.1,
+          "Acid Saturation %": 18.3,
+          "Fe": 0.6,
+          "Mn": 0.3,
+          "Cu": 2.3,
+          "Zn": 0.36,
+          "S": 20.0,
+          "B": 1.1
+        }
+      },
+      {
+        "name": "Sample5 North",
+        "lat": -8.739727398128814,
+        "lon": 24.85757720684768,
+        "s_code": "S5",
+        "chem": {
+          "Density": 75.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 11.0,
+          "K": 0.44,
+          "Na": 0.09,
+          "Ca": 0.3,
+          "Mg": 4.2,
+          "%Ca": 42.6,
+          "%Mg": 9.2,
+          "%K": 11.2,
+          "%Na": 12.2,
+          "Acid Saturation %": 24.8,
+          "Fe": 0.8,
+          "Mn": 0.4,
+          "Cu": 1.1,
+          "Zn": 0.47,
+          "S": 84.4,
+          "B": 1.4
+        }
+      },
+      {
+        "name": "sample 1 lower spot 0/25",
+        "lat": -8.65001667,
+        "lon": 24.68031,
+        "s_code": "S1",
+        "chem": {
+          "Density": 74.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 9.0,
+          "K": 0.4,
+          "Na": 0.16,
+          "Ca": 0.46,
+          "Mg": 4.9,
+          "%Ca": 40.7,
+          "%Mg": 14.3,
+          "%K": 7.1,
+          "%Na": 12.1,
+          "Acid Saturation %": 25.8,
+          "Fe": 2.0,
+          "Mn": 0.4,
+          "Cu": 1.7,
+          "Zn": 0.47,
+          "S": 90.3,
+          "B": 106.4
+        }
+      },
+      {
+        "name": "sample 2 termite 0/25",
+        "lat": -8.64959667,
+        "lon": 24.68044667,
+        "s_code": "S2",
+        "chem": {
+          "Density": 81.1,
+          "pH": 4.2,
+          "Exc. Acid": 0.18,
+          "P": 13.0,
+          "K": 0.42,
+          "Na": 0.22,
+          "Ca": 0.44,
+          "Mg": 4.1,
+          "%Ca": 44.2,
+          "%Mg": 21.9,
+          "%K": 9.1,
+          "%Na": 6.0,
+          "Acid Saturation %": 18.9,
+          "Fe": 2.4,
+          "Mn": 0.8,
+          "Cu": 0.7,
+          "Zn": 0.98,
+          "S": 5.3,
+          "B": 32.6
+        }
+      },
+      {
+        "name": "sample 3 0/25. sable jaune a 1m",
+        "lat": -8.61654667,
+        "lon": 24.68499833,
+        "s_code": "S3",
+        "chem": {
+          "Density": 78.1,
+          "pH": 4.4,
+          "Exc. Acid": 0.08,
+          "P": 7.0,
+          "K": 0.23,
+          "Na": 0.14,
+          "Ca": 0.25,
+          "Mg": 3.0,
+          "%Ca": 37.6,
+          "%Mg": 17.5,
+          "%K": 12.0,
+          "%Na": 11.0,
+          "Acid Saturation %": 21.9,
+          "Fe": 1.5,
+          "Mn": 0.3,
+          "Cu": 0.9,
+          "Zn": 0.34,
+          "S": 119.5,
+          "B": 8.9
+        }
+      },
+      {
+        "name": "sample 5,  0/25 et 6 a 1m",
+        "lat": -8.62492833,
+        "lon": 24.71190833,
+        "s_code": "S5",
+        "chem": {
+          "Density": 75.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 11.0,
+          "K": 0.44,
+          "Na": 0.09,
+          "Ca": 0.3,
+          "Mg": 4.2,
+          "%Ca": 42.6,
+          "%Mg": 9.2,
+          "%K": 11.2,
+          "%Na": 12.2,
+          "Acid Saturation %": 24.8,
+          "Fe": 0.8,
+          "Mn": 0.4,
+          "Cu": 1.1,
+          "Zn": 0.47,
+          "S": 84.4,
+          "B": 1.4
+        }
+      },
+      {
+        "name": "sample 7 0/25 +(blanc a 1m)",
+        "lat": -8.68824833,
+        "lon": 24.76562833,
+        "s_code": "S7",
+        "chem": {
+          "Density": 68.7,
+          "pH": 4.1,
+          "Exc. Acid": 0.23,
+          "P": 8.0,
+          "K": 1.18,
+          "Na": 0.18,
+          "Ca": 0.34,
+          "Mg": 5.7,
+          "%Ca": 47.7,
+          "%Mg": 7.4,
+          "%K": 4.6,
+          "%Na": 9.0,
+          "Acid Saturation %": 31.3,
+          "Fe": 1.6,
+          "Mn": 0.5,
+          "Cu": 1.9,
+          "Zn": 0.74,
+          "S": 62.4,
+          "B": 2.3
+        }
+      },
+      {
+        "name": "sample 8 0/25",
+        "lat": -8.78558667,
+        "lon": 24.64303167,
+        "s_code": "S8",
+        "chem": {
+          "Density": 81.4,
+          "pH": 4.4,
+          "Exc. Acid": 0.08,
+          "P": 8.0,
+          "K": 0.5,
+          "Na": 0.16,
+          "Ca": 0.27,
+          "Mg": 4.2,
+          "%Ca": 46.1,
+          "%Mg": 17.7,
+          "%K": 6.0,
+          "%Na": 11.5,
+          "Acid Saturation %": 18.6,
+          "Fe": 2.9,
+          "Mn": 0.3,
+          "Cu": 1.9,
+          "Zn": 0.4,
+          "S": 73.3,
+          "B": 3.3
+        }
+      },
+      {
+        "name": "Sample 6 North",
+        "lat": -8.742546209941874,
+        "lon": 24.835746192061055,
+        "s_code": "S6",
+        "chem": {
+          "Density": 84.8,
+          "pH": 4.3,
+          "Exc. Acid": 0.14,
+          "P": 7.0,
+          "K": 0.6,
+          "Na": 0.12,
+          "Ca": 0.93,
+          "Mg": 4.8,
+          "%Ca": 29.4,
+          "%Mg": 10.4,
+          "%K": 13.4,
+          "%Na": 31.6,
+          "Acid Saturation %": 15.2,
+          "Fe": 0.8,
+          "Mn": 0.8,
+          "Cu": 2.4,
+          "Zn": 0.92,
+          "S": 14.8,
+          "B": 4.6
+        }
+      },
+      {
+        "name": "Sample 1 North Day 2",
+        "lat": -8.722865891313225,
+        "lon": 24.92467336742841,
+        "s_code": "S1",
+        "chem": {
+          "Density": 74.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 9.0,
+          "K": 0.4,
+          "Na": 0.16,
+          "Ca": 0.46,
+          "Mg": 4.9,
+          "%Ca": 40.7,
+          "%Mg": 14.3,
+          "%K": 7.1,
+          "%Na": 12.1,
+          "Acid Saturation %": 25.8,
+          "Fe": 2.0,
+          "Mn": 0.4,
+          "Cu": 1.7,
+          "Zn": 0.47,
+          "S": 90.3,
+          "B": 106.4
+        }
+      },
+      {
+        "name": "Sample 1 Far North",
+        "lat": -8.683921687750592,
+        "lon": 24.823130369323348,
+        "s_code": "S1",
+        "chem": {
+          "Density": 74.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 9.0,
+          "K": 0.4,
+          "Na": 0.16,
+          "Ca": 0.46,
+          "Mg": 4.9,
+          "%Ca": 40.7,
+          "%Mg": 14.3,
+          "%K": 7.1,
+          "%Na": 12.1,
+          "Acid Saturation %": 25.8,
+          "Fe": 2.0,
+          "Mn": 0.4,
+          "Cu": 1.7,
+          "Zn": 0.47,
+          "S": 90.3,
+          "B": 106.4
+        }
+      },
+      {
+        "name": "s3 FN",
+        "lat": -8.680218593894843,
+        "lon": 24.846937156930316,
+        "s_code": "S3",
+        "chem": {
+          "Density": 78.1,
+          "pH": 4.4,
+          "Exc. Acid": 0.08,
+          "P": 7.0,
+          "K": 0.23,
+          "Na": 0.14,
+          "Ca": 0.25,
+          "Mg": 3.0,
+          "%Ca": 37.6,
+          "%Mg": 17.5,
+          "%K": 12.0,
+          "%Na": 11.0,
+          "Acid Saturation %": 21.9,
+          "Fe": 1.5,
+          "Mn": 0.3,
+          "Cu": 0.9,
+          "Zn": 0.34,
+          "S": 119.5,
+          "B": 8.9
+        }
+      },
+      {
+        "name": "S4 FN",
+        "lat": -8.681250528130336,
+        "lon": 24.847383670793388,
+        "s_code": "S4",
+        "chem": {
+          "Density": 81.7,
+          "pH": 4.4,
+          "Exc. Acid": 0.07,
+          "P": 11.0,
+          "K": 0.32,
+          "Na": 0.02,
+          "Ca": 0.7,
+          "Mg": 3.7,
+          "%Ca": 26.5,
+          "%Mg": 8.7,
+          "%K": 14.3,
+          "%Na": 32.1,
+          "Acid Saturation %": 18.3,
+          "Fe": 0.6,
+          "Mn": 0.3,
+          "Cu": 2.3,
+          "Zn": 0.36,
+          "S": 20.0,
+          "B": 1.1
+        }
+      },
+      {
+        "name": "S6FN",
+        "lat": -8.677436371446332,
+        "lon": 24.816185401731083,
+        "s_code": "S6",
+        "chem": {
+          "Density": 84.8,
+          "pH": 4.3,
+          "Exc. Acid": 0.14,
+          "P": 7.0,
+          "K": 0.6,
+          "Na": 0.12,
+          "Ca": 0.93,
+          "Mg": 4.8,
+          "%Ca": 29.4,
+          "%Mg": 10.4,
+          "%K": 13.4,
+          "%Na": 31.6,
+          "Acid Saturation %": 15.2,
+          "Fe": 0.8,
+          "Mn": 0.8,
+          "Cu": 2.4,
+          "Zn": 0.92,
+          "S": 14.8,
+          "B": 4.6
+        }
+      },
+      {
+        "name": "sample 6/12 no 1. 0/25",
+        "lat": -8.77628888888889,
+        "lon": 24.83618055555555,
+        "s_code": "S6",
+        "chem": {
+          "Density": 84.8,
+          "pH": 4.3,
+          "Exc. Acid": 0.14,
+          "P": 7.0,
+          "K": 0.6,
+          "Na": 0.12,
+          "Ca": 0.93,
+          "Mg": 4.8,
+          "%Ca": 29.4,
+          "%Mg": 10.4,
+          "%K": 13.4,
+          "%Na": 31.6,
+          "Acid Saturation %": 15.2,
+          "Fe": 0.8,
+          "Mn": 0.8,
+          "Cu": 2.4,
+          "Zn": 0.92,
+          "S": 14.8,
+          "B": 4.6
+        }
+      },
+      {
+        "name": "termite soil 0/15. 15/25 sample 3 et 3b",
+        "lat": -8.69244833,
+        "lon": 24.79769667,
+        "s_code": "S3",
+        "chem": {
+          "Density": 78.1,
+          "pH": 4.4,
+          "Exc. Acid": 0.08,
+          "P": 7.0,
+          "K": 0.23,
+          "Na": 0.14,
+          "Ca": 0.25,
+          "Mg": 3.0,
+          "%Ca": 37.6,
+          "%Mg": 17.5,
+          "%K": 12.0,
+          "%Na": 11.0,
+          "Acid Saturation %": 21.9,
+          "Fe": 1.5,
+          "Mn": 0.3,
+          "Cu": 0.9,
+          "Zn": 0.34,
+          "S": 119.5,
+          "B": 8.9
+        }
+      },
+      {
+        "name": "sample 4 0/25 plaine",
+        "lat": -8.699085,
+        "lon": 24.78767333,
+        "s_code": "S4",
+        "chem": {
+          "Density": 81.7,
+          "pH": 4.4,
+          "Exc. Acid": 0.07,
+          "P": 11.0,
+          "K": 0.32,
+          "Na": 0.02,
+          "Ca": 0.7,
+          "Mg": 3.7,
+          "%Ca": 26.5,
+          "%Mg": 8.7,
+          "%K": 14.3,
+          "%Na": 32.1,
+          "Acid Saturation %": 18.3,
+          "Fe": 0.6,
+          "Mn": 0.3,
+          "Cu": 2.3,
+          "Zn": 0.36,
+          "S": 20.0,
+          "B": 1.1
+        }
+      },
+      {
+        "name": "sample 5 at0/25",
+        "lat": -8.71602833,
+        "lon": 24.799295,
+        "s_code": "S5",
+        "chem": {
+          "Density": 75.2,
+          "pH": 4.3,
+          "Exc. Acid": 0.12,
+          "P": 11.0,
+          "K": 0.44,
+          "Na": 0.09,
+          "Ca": 0.3,
+          "Mg": 4.2,
+          "%Ca": 42.6,
+          "%Mg": 9.2,
+          "%K": 11.2,
+          "%Na": 12.2,
+          "Acid Saturation %": 24.8,
+          "Fe": 0.8,
+          "Mn": 0.4,
+          "Cu": 1.1,
+          "Zn": 0.47,
+          "S": 84.4,
+          "B": 1.4
+        }
+      },
+      {
+        "name": "sample 6 0/25",
+        "lat": -8.72416333,
+        "lon": 24.82243667,
+        "s_code": "S6",
+        "chem": {
+          "Density": 84.8,
+          "pH": 4.3,
+          "Exc. Acid": 0.14,
+          "P": 7.0,
+          "K": 0.6,
+          "Na": 0.12,
+          "Ca": 0.93,
+          "Mg": 4.8,
+          "%Ca": 29.4,
+          "%Mg": 10.4,
+          "%K": 13.4,
+          "%Na": 31.6,
+          "Acid Saturation %": 15.2,
+          "Fe": 0.8,
+          "Mn": 0.8,
+          "Cu": 2.4,
+          "Zn": 0.92,
+          "S": 14.8,
+          "B": 4.6
+        }
+      }
+    ];
+
+    var map = L.map("map_container", { center: [-8.73, 24.87], crs: L.CRS.EPSG3857, zoom: 12, zoomControl: true, preferCanvas: false });
+    L.control.scale().addTo(map);
+
+    var tile_osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { "attribution": "&copy; OpenStreetMap" }).addTo(map);
+    var tile_satellite = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { "attribution": "Esri" });
+
+    // Markers Layer
+    var markers_layer = L.featureGroup().addTo(map);
+    samples_data.forEach(function (s) {
+      var popupContent = "<b>" + s.name + "</b><br><b>Code:</b> " + (s.s_code || "N/A") + "<br>";
+      if (s.chem && Object.keys(s.chem).length > 0) {
+        popupContent += "<hr style='margin:4px 0'>";
+        for (var key in s.chem) {
+          popupContent += "<b>" + key + ":</b> " + s.chem[key] + "<br>";
+        }
+      }
+      L.marker([s.lat, s.lon]).addTo(markers_layer).bindPopup(popupContent).bindTooltip(s.name, { "sticky": true });
+    });
+
+    // Heatmap generation helper
+    function createHeatLayer(data, chemKey) {
+      var points = [];
+      var vals = data.filter(function (s) { return s.chem && s.chem[chemKey] !== undefined; }).map(function (s) { return s.chem[chemKey]; });
+      if (vals.length === 0) return L.layerGroup();
+      var minVal = Math.min.apply(null, vals);
+      var maxVal = Math.max.apply(null, vals);
+      var range = maxVal - minVal || 1;
+      data.forEach(function (s) {
+        if (s.chem && s.chem[chemKey] !== undefined) {
+          var intensity = (s.chem[chemKey] - minVal) / range;
+          points.push([s.lat, s.lon, intensity]);
+        }
+      });
+      return L.heatLayer(points, { radius: 25, blur: 15, maxZoom: 17 });
+    }
+
+    var heatmap_ph = createHeatLayer(samples_data, "pH");
+    var heatmap_p = createHeatLayer(samples_data, "P");
+    var heatmap_k = createHeatLayer(samples_data, "K");
+    var heatmap_ca = createHeatLayer(samples_data, "Ca");
+    var heatmap_mg = createHeatLayer(samples_data, "Mg");
+    var heatmap_fe = createHeatLayer(samples_data, "Fe");
+    var heatmap_zn = createHeatLayer(samples_data, "Zn");
+    var heatmap_acid = createHeatLayer(samples_data, "Acid Saturation %");
+
+    var baseMaps = { "OpenStreetMap": tile_osm, "Satellite": tile_satellite };
+    var overlayMaps = {
+      "Samples (Markers)": markers_layer,
+      "Heatmap: pH": heatmap_ph,
+      "Heatmap: Phosphorus (P)": heatmap_p,
+      "Heatmap: Potassium (K)": heatmap_k,
+      "Heatmap: Calcium (Ca)": heatmap_ca,
+      "Heatmap: Magnesium (Mg)": heatmap_mg,
+      "Heatmap: Iron (Fe)": heatmap_fe,
+      "Heatmap: Zinc (Zn)": heatmap_zn,
+      "Heatmap: Acid Saturation %": heatmap_acid
+    };
+
+    L.control.layers(baseMaps, overlayMaps, { "autoZIndex": true, "collapsed": false, "position": "topright" }).addTo(map);
+
+    // Legend toggling
+    var legendMap = {
+      "Heatmap: pH": "legend_ph",
+      "Heatmap: Phosphorus (P)": "legend_p",
+      "Heatmap: Potassium (K)": "legend_k",
+      "Heatmap: Calcium (Ca)": "legend_ca",
+      "Heatmap: Magnesium (Mg)": "legend_mg",
+      "Heatmap: Iron (Fe)": "legend_fe",
+      "Heatmap: Zinc (Zn)": "legend_zn",
+      "Heatmap: Acid Saturation %": "legend_acid"
+    };
+
+    function hideAllLegends() { for (var key in legendMap) { document.getElementById(legendMap[key]).style.display = 'none'; } }
+
+    map.on('overlayadd', function (e) {
+      if (legendMap[e.name]) { hideAllLegends(); document.getElementById(legendMap[e.name]).style.display = 'block'; }
+    });
+    map.on('overlayremove', function (e) {
+      if (legendMap[e.name]) { document.getElementById(legendMap[e.name]).style.display = 'none'; }
+    });
+
+    // Fit bounds
+    var bounds = L.latLngBounds(samples_data.map(function (s) { return [s.lat, s.lon]; }));
+    map.fitBounds(bounds);
+  </script>
+</body>
+
+</html>
